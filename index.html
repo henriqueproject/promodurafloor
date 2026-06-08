@@ -1,0 +1,1839 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Durafloor New Way — Promoção R$ 63,99 m² | Decorcom Interiores</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --blue:    #327fa4;
+  --blue2:   #2567883;
+  --green:   #31654e;
+  --green2:  #274f3d;
+  --cream:   #f7f6f3;
+  --cream2:  #eee8d8;
+  --border:  #e8e5df;
+  --text:    #1a1a1a;
+  --text2:   #666;
+  --white:   #fff;
+  --dark:    #0d0b08;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+
+/* ─── HERO ─────────────────────────────────────────── */
+.hero {
+  background: #000 url('img/banner-hero.png') center 35% / cover no-repeat;
+  position: relative;
+  overflow: hidden;
+  border-bottom: none;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom,
+    rgba(0,0,0,0.68) 0%,
+    rgba(0,0,0,0.48) 55%,
+    rgba(0,0,0,0.65) 100%);
+}
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.4rem;
+  padding: 3.5rem 2rem 2.5rem;
+  position: relative;
+  z-index: 1;
+}
+.hero-logo-wrap { display: flex; align-items: center; justify-content: center; }
+.hero-logo {
+  height: 100px;
+  object-fit: contain;
+  opacity: 0.95;
+}
+
+.hero-tag {
+  display: inline-block;
+  border: 1px solid rgba(255,255,255,0.35);
+  color: rgba(255,255,255,0.85);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  padding: 7px 22px;
+}
+
+.hero-especialistas {
+  color: rgba(255,255,255,0.65);
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: -0.8rem;
+}
+
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 9vw, 6.5rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 0.92;
+  letter-spacing: -1px;
+}
+.hero-title span {
+  color: var(--blue);
+  font-style: italic;
+  display: block;
+}
+
+.hero-desc {
+  color: rgba(255,255,255,0.72);
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  max-width: 540px;
+  line-height: 1.65;
+}
+
+.hero-aviso {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.55);
+  font-size: 0.75rem;
+  padding: 0.6rem 1.2rem;
+  max-width: 560px;
+  line-height: 1.5;
+}
+
+.hero-cta-group {
+  display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center;
+  padding-bottom: 1rem;
+}
+.btn-primary {
+  background: var(--blue); color: #fff;
+  font-size: 12px; font-weight: 600; letter-spacing: 1px;
+  padding: 14px 32px; border: none; cursor: pointer;
+  text-decoration: none; display: inline-block; transition: background 0.25s;
+  border-radius: 2px;
+}
+.btn-primary:hover { background: #2567a8; }
+.btn-secondary {
+  background: var(--green); color: #fff;
+  font-size: 12px; font-weight: 600; letter-spacing: 1px;
+  padding: 14px 32px; border: none; cursor: pointer;
+  text-decoration: none; display: inline-block; transition: background 0.25s;
+  border-radius: 2px;
+}
+.btn-secondary:hover { background: var(--green2); }
+.btn-ghost-white {
+  background: transparent; color: rgba(255,255,255,0.85);
+  font-size: 12px; font-weight: 500; letter-spacing: 1px;
+  padding: 14px 28px;
+  border: 1px solid rgba(255,255,255,0.35); cursor: pointer;
+  text-decoration: none; display: inline-block; transition: all 0.25s;
+  border-radius: 2px;
+}
+.btn-ghost-white:hover { border-color: #fff; color: #fff; }
+
+/* Barra de specs fixa no rodapé do hero */
+.hero-specs-bar {
+  position: relative; z-index: 1;
+  background: rgba(0,0,0,0.5);
+  border-top: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(10px);
+  display: flex; justify-content: center;
+}
+.hero-spec {
+  flex: 1; max-width: 220px;
+  padding: 1.25rem 1rem; text-align: center;
+  border-right: 1px solid rgba(255,255,255,0.1);
+}
+.hero-spec:last-child { border-right: none; }
+.hero-spec-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.75rem; color: var(--blue); font-weight: 700; line-height: 1;
+}
+.hero-spec-label {
+  font-size: 9px; color: rgba(255,255,255,0.5);
+  letter-spacing: 2px; text-transform: uppercase; margin-top: 4px;
+}
+
+/* ─── STRIP PREÇO ───────────────────────────────────── */
+.price-strip {
+  background: var(--blue);
+  padding: 1.4rem 20px;
+  text-align: center;
+}
+.price-strip-inner {
+  max-width: 900px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: center;
+  gap: 2rem; flex-wrap: wrap;
+}
+.price-strip-label {
+  color: rgba(255,255,255,0.8);
+  font-size: 0.88rem; letter-spacing: 1px;
+}
+.price-strip-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem; color: #fff; font-weight: 700; line-height: 1;
+}
+.price-strip-price sup { font-size: 45%; vertical-align: super; }
+.price-strip-price small { font-size: 40%; font-family: 'DM Sans',sans-serif; font-weight: 400; }
+.price-strip-detail {
+  color: rgba(255,255,255,0.7); font-size: 0.8rem;
+}
+
+/* ─── DIFERENCIAIS ──────────────────────────────────── */
+.dif-section {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 3rem 20px;
+}
+.dif-grid {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: 0;
+}
+@media (max-width: 900px) { .dif-grid { grid-template-columns: repeat(3,1fr); } }
+@media (max-width: 540px) { .dif-grid { grid-template-columns: repeat(2,1fr); } }
+.dif-item {
+  padding: 1.75rem 1rem; text-align: center;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.2s;
+}
+.dif-item:hover { background: #f0f6fa; }
+.dif-icon { font-size: 1.6rem; margin-bottom: 0.6rem; display: block; }
+.dif-title { font-size: 0.82rem; font-weight: 600; color: var(--text); margin-bottom: 0.25rem; }
+.dif-desc { font-size: 0.72rem; color: var(--text2); line-height: 1.45; }
+
+/* ─── SEÇÕES GENÉRICO ───────────────────────────────── */
+.section { padding: 70px 20px; }
+.container { max-width: 1100px; margin: 0 auto; }
+.section-eyebrow {
+  font-size: 10px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 0.6rem; display: block;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4.5vw, 3rem);
+  font-weight: 700; color: var(--text); line-height: 1.08;
+}
+.section-title.white { color: #fff; }
+.section-sub { font-size: 1rem; color: var(--text2); max-width: 560px; line-height: 1.7; }
+.section-divider { width: 48px; height: 2px; background: var(--blue); margin: 0.9rem 0 1.25rem; }
+.center { text-align: center; }
+.center .section-divider { margin-left: auto; margin-right: auto; }
+.center .section-sub { margin-left: auto; margin-right: auto; }
+
+/* ─── CAROUSEL ──────────────────────────────────────── */
+.carousel-section {
+  background: var(--dark);
+  padding: 0;
+}
+.carousel-header {
+  padding: 4.5rem 20px 3rem;
+  text-align: center;
+}
+.carousel-wrapper { position: relative; overflow: hidden; }
+.carousel-track {
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.carousel-slide {
+  min-width: 100%; height: 72vh; min-height: 480px;
+  position: relative; overflow: hidden; cursor: pointer;
+}
+.carousel-slide img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.9s ease; display: block;
+}
+.carousel-slide:hover img { transform: scale(1.04); }
+.carousel-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top,
+    rgba(13,11,8,0.90) 0%,
+    rgba(13,11,8,0.35) 45%,
+    transparent 100%);
+}
+.carousel-info {
+  position: absolute; bottom: 3rem; left: 4rem; right: 4rem;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  gap: 2rem;
+}
+@media (max-width: 600px) { .carousel-info { left: 1.5rem; right: 1.5rem; bottom: 1.5rem; } }
+.carousel-color-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5.5vw, 3.8rem);
+  font-weight: 700; color: #fff; line-height: 1; font-style: italic;
+}
+.carousel-color-sub {
+  color: rgba(255,255,255,0.6); font-size: 0.78rem;
+  letter-spacing: 3px; text-transform: uppercase; margin-top: 0.5rem;
+}
+.carousel-side { display: flex; flex-direction: column; align-items: flex-end; gap: 0.75rem; }
+.carousel-badge {
+  background: var(--blue); color: #fff;
+  font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  padding: 9px 20px; border-radius: 2px;
+}
+.carousel-price-box {
+  text-align: right; color: rgba(255,255,255,0.7); font-size: 0.8rem;
+}
+.carousel-price-box strong {
+  display: block; font-family: 'Playfair Display', serif;
+  font-size: 2rem; color: #fff; font-weight: 700; line-height: 1;
+}
+
+.carousel-nav {
+  display: flex; align-items: center; justify-content: center; gap: 1.5rem;
+  padding: 1.75rem 0 1.25rem; background: var(--dark);
+}
+.nav-btn {
+  width: 48px; height: 48px;
+  border: 1px solid rgba(255,255,255,0.2); background: transparent;
+  color: rgba(255,255,255,0.7); font-size: 1rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.25s; border-radius: 2px;
+}
+.nav-btn:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+.carousel-dots { display: flex; gap: 7px; align-items: center; }
+.dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: rgba(255,255,255,0.25); cursor: pointer; transition: all 0.3s;
+}
+.dot.active { background: var(--blue); width: 24px; border-radius: 4px; }
+
+.thumb-strip {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 0;
+  background: #111;
+}
+.thumb {
+  height: 90px; overflow: hidden; cursor: pointer;
+  position: relative; border-top: 3px solid transparent;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  transition: border-color 0.3s;
+}
+.thumb:last-child { border-right: none; }
+.thumb.active { border-top-color: var(--blue); }
+.thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+.thumb:hover img { transform: scale(1.06); }
+.thumb-label {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: rgba(13,11,8,0.75); color: #fff;
+  font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+  padding: 5px; text-align: center;
+}
+.thumb.active .thumb-label { background: rgba(50,127,164,0.6); color: #fff; }
+
+/* ─── CALCULADORA ───────────────────────────────────── */
+.calc-section { background: #1a1a1a; }
+.calc-layout { display: grid; grid-template-columns: 1fr 420px; gap: 2.5rem; align-items: start; max-width: 1060px; margin: 0 auto; }
+@media (max-width: 900px) { .calc-layout { grid-template-columns: 1fr; } }
+
+.calc-form-box {
+  background: #222; border: 1px solid rgba(255,255,255,0.08); padding: 2.25rem;
+  border-radius: 4px;
+}
+.calc-group { margin-bottom: 1.5rem; }
+.calc-label {
+  display: block; font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+  color: rgba(255,255,255,0.55); margin-bottom: 0.55rem; font-weight: 600;
+}
+.calc-input {
+  width: 100%; background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.15); color: #fff;
+  font-family: 'DM Sans', sans-serif; font-size: 1.1rem; font-weight: 500;
+  padding: 13px 16px; outline: none; transition: border-color 0.25s;
+  border-radius: 2px; appearance: none;
+}
+.calc-input:focus { border-color: var(--blue); }
+.calc-input::placeholder { color: rgba(255,255,255,0.2); }
+.calc-input-hint { font-size: 0.72rem; color: rgba(255,255,255,0.25); margin-top: 5px; }
+.calc-select {
+  width: 100%; background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.15); color: #fff;
+  font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+  padding: 13px 16px; outline: none; transition: border-color 0.25s;
+  cursor: pointer; border-radius: 2px;
+}
+.calc-select:focus { border-color: var(--blue); }
+.calc-select option { background: #222; }
+
+/* Rodapé toggle */
+.rodape-toggle-btn {
+  display: block; width: 100%;
+  background: rgba(50,127,164,0.15); color: var(--blue);
+  font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; padding: 14px;
+  border: 1px solid rgba(50,127,164,0.3); cursor: pointer; transition: all 0.25s;
+  border-radius: 2px; margin-top: 0.5rem;
+}
+.rodape-toggle-btn:hover { background: rgba(50,127,164,0.28); }
+.rodape-toggle-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+.rodape-options { margin-top: 1.5rem; display: none; }
+.rodape-options.show { display: block; }
+.rodape-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 1rem; }
+@media (max-width: 500px) { .rodape-grid { grid-template-columns: repeat(2,1fr); } }
+.rodape-opt {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12);
+  padding: 10px 8px; cursor: pointer; text-align: center; transition: all 0.2s; border-radius: 3px;
+}
+.rodape-opt.active { background: rgba(50,127,164,0.2); border-color: var(--blue); }
+.rodape-opt-size { font-size: 0.95rem; font-weight: 700; color: #fff; display: block; }
+.rodape-opt-price { font-size: 0.7rem; color: rgba(255,255,255,0.4); margin-top: 2px; }
+
+/* Acessórios */
+.acess-block { margin-top: 1.5rem; }
+.acess-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.acess-item:last-child { border-bottom: none; }
+.acess-check {
+  width: 18px; height: 18px; border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.05); border-radius: 3px; cursor: pointer;
+  flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+  font-size: 11px; color: #fff; transition: all 0.2s; margin-top: 2px;
+}
+.acess-check.checked { background: var(--blue); border-color: var(--blue); }
+.acess-info { flex: 1; cursor: pointer; }
+.acess-name { font-size: 0.85rem; color: #fff; line-height: 1.4; }
+.acess-desc { font-size: 0.7rem; color: rgba(255,255,255,0.35); margin-top: 2px; }
+.acess-price { font-size: 0.85rem; font-weight: 600; color: rgba(255,255,255,0.6); white-space: nowrap; margin-top: 2px; }
+.acess-qty-wrap { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.qty-btn {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+  color: #fff; font-size: 1rem; line-height: 1; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s; flex-shrink: 0;
+}
+.qty-btn:hover { background: rgba(50,127,164,0.4); border-color: var(--blue); }
+.qty-val { font-size: 0.9rem; font-weight: 700; color: #fff; min-width: 16px; text-align: center; }
+
+/* Remoção de laminado antigo */
+.remocao-block { margin-top: 1.2rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); padding: 1rem; border-radius: 3px; }
+.remocao-row { display: flex; align-items: center; gap: 10px; }
+.remocao-label { flex: 1; font-size: 0.82rem; color: rgba(255,255,255,0.55); }
+.toggle-switch { position: relative; width: 40px; height: 22px; flex-shrink: 0; cursor: pointer; }
+.toggle-switch input { opacity: 0; width: 0; height: 0; }
+.toggle-track {
+  position: absolute; inset: 0; background: rgba(255,255,255,0.12); border-radius: 22px; transition: 0.25s;
+}
+.toggle-thumb {
+  position: absolute; height: 16px; width: 16px; left: 3px; bottom: 3px;
+  background: #fff; border-radius: 50%; transition: 0.25s;
+}
+input:checked + .toggle-track { background: var(--blue); }
+input:checked ~ .toggle-thumb { transform: translateX(18px); }
+.remocao-note { font-size: 0.7rem; color: rgba(255,255,255,0.28); margin-top: 6px; }
+
+/* Resultado */
+.calc-result-box {
+  background: #222; border: 1px solid rgba(255,255,255,0.08);
+  padding: 2.25rem; border-radius: 4px;
+}
+.result-heading {
+  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 1.75rem;
+  display: flex; align-items: center; gap: 8px;
+}
+.result-heading::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.08); }
+.result-row {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding: 0.72rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); gap: 1rem;
+}
+.result-row:last-of-type { border-bottom: none; }
+.result-key { color: rgba(255,255,255,0.4); font-size: 0.82rem; line-height: 1.4; }
+.result-val { color: #fff; font-weight: 500; font-size: 0.82rem; text-align: right; }
+.result-val.ok { color: #4ade80; }
+.result-section-sep {
+  border: none; border-top: 1px solid rgba(255,255,255,0.1);
+  margin: 0.75rem 0;
+}
+.result-total-block {
+  background: rgba(50,127,164,0.12); border-top: 1px solid rgba(50,127,164,0.3);
+  margin: 1.5rem -2.25rem -2.25rem; padding: 1.5rem 2.25rem;
+  border-radius: 0 0 4px 4px;
+}
+.result-total-pix {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem;
+}
+.result-total-label { color: var(--blue); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; }
+.result-total-note { font-size: 0.72rem; color: rgba(255,255,255,0.3); margin-top: 3px; }
+.result-total-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem; color: #fff; font-weight: 700; line-height: 1;
+}
+.result-parcela {
+  font-size: 0.78rem; color: rgba(255,255,255,0.45); margin-top: 0.35rem;
+  padding-top: 0.5rem; border-top: 1px solid rgba(255,255,255,0.08);
+}
+.result-parcela strong { color: rgba(255,255,255,0.7); }
+
+.calc-cta-btn {
+  display: block; width: 100%;
+  background: var(--green); color: #fff;
+  font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; padding: 16px;
+  border: none; cursor: pointer; margin-top: 1.5rem; transition: background 0.25s;
+  border-radius: 2px;
+}
+.calc-cta-btn:hover { background: var(--green2); }
+.calc-disclaimer {
+  margin-top: 1rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 0.75rem 1rem;
+  font-size: 0.72rem; color: rgba(255,255,255,0.35); line-height: 1.5;
+  border-radius: 2px;
+}
+
+/* ─── SIMULADOR ─────────────────────────────────────── */
+.sim-section { background: var(--cream); }
+.sim-grid { display: grid; grid-template-columns: 360px 1fr; gap: 2.5rem; align-items: start; }
+@media (max-width: 860px) { .sim-grid { grid-template-columns: 1fr; } }
+
+.sim-panel {
+  background: var(--white);
+  border: 0.5px solid var(--border);
+  border-radius: 10px;
+  padding: 1.75rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+}
+.sim-step-label {
+  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--text2); font-weight: 700; margin-bottom: 0.75rem;
+  display: flex; align-items: center; gap: 8px;
+}
+.sim-step-num {
+  width: 20px; height: 20px; background: var(--blue); color: #fff;
+  font-size: 11px; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-weight: 700; border-radius: 50%;
+}
+
+.upload-zone {
+  border: 2px dashed rgba(50,127,164,0.4);
+  background: rgba(50,127,164,0.03);
+  padding: 2.25rem 1.5rem; text-align: center; cursor: pointer;
+  position: relative; transition: all 0.25s; margin-bottom: 1.4rem;
+  border-radius: 8px;
+}
+.upload-zone:hover { border-color: var(--blue); background: rgba(50,127,164,0.06); }
+.upload-zone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+.upload-icon {
+  width: 48px; height: 48px;
+  background: rgba(50,127,164,0.1); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 0.75rem; font-size: 1.3rem;
+}
+.upload-text { font-size: 0.82rem; color: var(--text2); line-height: 1.5; }
+.upload-text strong { color: var(--text); display: block; margin-bottom: 0.2rem; }
+
+.color-swatches { display: grid; grid-template-columns: repeat(4,1fr); gap: 6px; margin-bottom: 1.1rem; }
+.swatch {
+  aspect-ratio: 3/2; overflow: hidden; cursor: pointer;
+  border: 2px solid transparent; position: relative; transition: border-color 0.25s;
+  border-radius: 4px;
+}
+.swatch.active { border-color: var(--blue); }
+.swatch img { width: 100%; height: 100%; object-fit: cover; }
+.swatch-name {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: rgba(13,11,8,0.72); color: #fff;
+  font-size: 8px; text-align: center; padding: 4px;
+  letter-spacing: 1px; text-transform: uppercase;
+}
+.swatch.active .swatch-name { background: rgba(50,127,164,0.7); }
+
+.sim-run-btn {
+  display: block; width: 100%;
+  background: var(--blue); color: #fff;
+  font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; padding: 14px;
+  border: none; cursor: pointer; transition: background 0.25s; border-radius: 6px;
+}
+.sim-run-btn:hover:not(:disabled) { background: #2567a8; }
+.sim-run-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.sim-disclaimer {
+  margin-top: 0.7rem; font-size: 0.7rem; color: var(--text2);
+  line-height: 1.5; background: rgba(50,127,164,0.05);
+  border: 1px solid rgba(50,127,164,0.15);
+  padding: 0.65rem 0.9rem; border-radius: 6px;
+}
+
+.sim-preview {
+  background: #e8e5df; min-height: 500px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden; border-radius: 10px;
+  border: 0.5px solid var(--border);
+}
+.sim-placeholder { text-align: center; color: rgba(0,0,0,0.3); }
+.sim-placeholder-icon { font-size: 3rem; margin-bottom: 0.9rem; display: block; }
+.sim-placeholder p { font-size: 0.85rem; line-height: 1.6; }
+
+.sim-loading {
+  position: absolute; inset: 0; background: rgba(0,0,0,0.75);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;
+  border-radius: 10px;
+}
+.spinner {
+  width: 40px; height: 40px;
+  border: 2px solid rgba(50,127,164,0.3); border-top-color: var(--blue);
+  border-radius: 50%; animation: spin 0.8s linear infinite;
+}
+.loading-text { color: rgba(255,255,255,0.8); font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; }
+
+/* ─── GARANTIAS ─────────────────────────────────────── */
+.guarantee-section { background: #1a1a1a; padding: 70px 20px; text-align: center; }
+.guarantee-grid {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 0;
+  max-width: 900px; margin: 3rem auto 0;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+@media (max-width: 700px) { .guarantee-grid { grid-template-columns: repeat(2,1fr); } }
+.guarantee-item {
+  padding: 2.5rem 1.25rem;
+  border-right: 1px solid rgba(255,255,255,0.08);
+}
+.guarantee-item:last-child { border-right: none; }
+.guarantee-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.2rem; color: var(--blue); font-weight: 700; line-height: 1;
+}
+.guarantee-divider { width: 28px; height: 2px; background: var(--blue); margin: 0.75rem auto; opacity: 0.5; }
+.guarantee-label { color: rgba(255,255,255,0.45); font-size: 0.77rem; letter-spacing: 2px; text-transform: uppercase; line-height: 1.5; }
+
+/* ─── FINAL CTA ─────────────────────────────────────── */
+.final-cta { background: var(--blue); padding: 80px 20px; text-align: center; }
+.final-cta-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 900;
+  color: #fff; line-height: 1.05; margin-bottom: 0.75rem;
+}
+.final-cta-sub {
+  font-size: 1rem; color: rgba(255,255,255,0.75);
+  max-width: 500px; margin: 0 auto 2.5rem; line-height: 1.7;
+}
+.final-cta-btns { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+.btn-white {
+  background: #fff; color: var(--blue);
+  font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  padding: 16px 38px; border: none; cursor: pointer;
+  text-decoration: none; display: inline-block; transition: all 0.25s; border-radius: 2px;
+}
+.btn-white:hover { background: var(--cream); }
+.btn-outline-white {
+  background: transparent; color: #fff;
+  font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  padding: 16px 38px; border: 2px solid rgba(255,255,255,0.5); cursor: pointer;
+  text-decoration: none; display: inline-block; transition: all 0.25s; border-radius: 2px;
+}
+.btn-outline-white:hover { border-color: #fff; }
+
+/* ─── FOOTER ─────────────────────────────────────────── */
+footer {
+  background: #000; padding: 2.5rem 20px; text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.footer-brand {
+  color: var(--blue); font-size: 1.2rem; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.4rem;
+  font-family: 'Playfair Display', serif;
+}
+footer p { color: rgba(255,255,255,0.3); font-size: 0.78rem; letter-spacing: 0.5px; }
+
+/* ─── WA FLOAT ───────────────────────────────────────── */
+.wa-float {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 999;
+  background: #25D366; color: #fff;
+  width: 60px; height: 60px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem; text-decoration: none;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+  transition: transform 0.3s; animation: pulse 2.5s infinite;
+}
+.wa-float:hover { transform: scale(1.1); }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 4px 20px rgba(37,211,102,0.45); }
+  50%       { box-shadow: 0 4px 40px rgba(37,211,102,0.7); }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════ HERO ══════════ -->
+<div class="hero">
+  <div class="hero-content">
+
+    <div class="hero-logo-wrap">
+      <img src="img/logo-hero.png"
+           class="hero-logo" alt="Decorcom Interiores"
+           onerror="this.outerHTML='<p style=\'font-family:Playfair Display,serif;font-size:1.4rem;color:#fff;letter-spacing:3px;font-weight:700\'>Decorcom Interiores</p>'"">
+    </div>
+
+    <div class="hero-tag">Promoção Especial · Edição Limitada</div>
+
+    <p class="hero-especialistas">Especialistas em</p>
+
+    <h1 class="hero-title">
+      Piso Laminado
+      <span>Durafloor New Way</span>
+    </h1>
+
+    <p class="hero-desc">
+      4 cores exclusivas, padrão AC4 auto tráfego, 25 anos de garantia residencial —
+      com piso, manta e instalação por um preço único.
+    </p>
+
+    <div class="hero-cta-group">
+      <a href="#calculadora" class="btn-primary">Calcular meu orçamento</a>
+      <a href="#cores" class="btn-ghost-white">Ver as 4 cores</a>
+      <a href="#simulador" class="btn-secondary">Simular na minha casa</a>
+    </div>
+
+    <p class="hero-aviso">
+      ⚠ Imagens exclusivas Decorcom Interiores — não autorizadas para uso em anúncios de terceiros.
+    </p>
+
+  </div>
+
+  <div class="hero-specs-bar">
+    <div class="hero-spec">
+      <div class="hero-spec-num">25</div>
+      <div class="hero-spec-label">Anos Garantia Residencial</div>
+    </div>
+    <div class="hero-spec">
+      <div class="hero-spec-num">AC4</div>
+      <div class="hero-spec-label">Padrão Auto Tráfego</div>
+    </div>
+    <div class="hero-spec">
+      <div class="hero-spec-num">5</div>
+      <div class="hero-spec-label">Anos Garantia Comercial</div>
+    </div>
+    <div class="hero-spec">
+      <div class="hero-spec-num">💧</div>
+      <div class="hero-spec-label">Resistente à Água</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ STRIP PREÇO ══════════ -->
+<div class="price-strip">
+  <div class="price-strip-inner">
+    <div>
+      <p class="price-strip-label">Piso + Manta + Instalação</p>
+    </div>
+    <div>
+      <p class="price-strip-price"><sup>R$</sup> 63,99 <small>m²</small></p>
+      <p style="color:rgba(255,255,255,0.65);font-size:0.78rem;margin-top:4px;letter-spacing:0.5px">mínimo de 25 m²</p>
+    </div>
+    <a href="#calculadora" class="btn-white" style="font-size:11px;padding:12px 24px">Calcular agora →</a>
+  </div>
+</div>
+
+
+<!-- ══════════ CAROUSEL ══════════ -->
+<section class="carousel-section" id="cores">
+  <div class="carousel-header">
+    <span class="section-eyebrow" style="color:rgba(50,127,164,0.85)">Escolha a sua cor</span>
+    <h2 class="section-title white">4 Cores Exclusivas</h2>
+    <div class="section-divider" style="margin:0.9rem auto 1.25rem"></div>
+    <p class="section-sub" style="color:rgba(255,255,255,0.5);margin:0 auto">
+      Carvalho York · Itapuã · Milão · Nórdica —<br>elegância e personalidade para cada ambiente.
+    </p>
+  </div>
+
+  <div class="carousel-wrapper">
+    <div class="carousel-track" id="track">
+
+      <div class="carousel-slide">
+        <img src="img/fotos-carrossel/Carvalho-york.png" alt="Carvalho York"
+             onerror="this.style.cssText='background:linear-gradient(135deg,#7a5030,#c8915a);width:100%;height:100%;object-fit:cover'">
+        <div class="carousel-overlay"></div>
+        <div class="carousel-info">
+          <div>
+            <p class="carousel-color-name">Carvalho York</p>
+            <p class="carousel-color-sub">Tom médio · Clássico · Versátil</p>
+          </div>
+          <div class="carousel-side">
+            <span class="carousel-badge">Em Promoção</span>
+            <div class="carousel-price-box">
+              Piso + Manta + Instalação
+              <strong>R$ 63,99<span style="font-size:55%;font-family:'DM Sans',sans-serif;font-weight:400;white-space:nowrap"> m²</span></strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="carousel-slide">
+        <img src="img/fotos-carrossel/Itapua.png" alt="Itapuã"
+             onerror="this.style.cssText='background:linear-gradient(135deg,#c0905a,#e8d098);width:100%;height:100%;object-fit:cover'">
+        <div class="carousel-overlay"></div>
+        <div class="carousel-info">
+          <div>
+            <p class="carousel-color-name">Itapuã</p>
+            <p class="carousel-color-sub">Tom claro · Natural · Contemporâneo</p>
+          </div>
+          <div class="carousel-side">
+            <span class="carousel-badge">Em Promoção</span>
+            <div class="carousel-price-box">
+              Piso + Manta + Instalação
+              <strong>R$ 63,99<span style="font-size:55%;font-family:'DM Sans',sans-serif;font-weight:400;white-space:nowrap"> m²</span></strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="carousel-slide">
+        <img src="img/fotos-carrossel/milao.png" alt="Milão"
+             onerror="this.style.cssText='background:linear-gradient(135deg,#5a6070,#9aa0b0);width:100%;height:100%;object-fit:cover'">
+        <div class="carousel-overlay"></div>
+        <div class="carousel-info">
+          <div>
+            <p class="carousel-color-name">Milão</p>
+            <p class="carousel-color-sub">Cinza moderno · Urbano · Sofisticado</p>
+          </div>
+          <div class="carousel-side">
+            <span class="carousel-badge">Em Promoção</span>
+            <div class="carousel-price-box">
+              Piso + Manta + Instalação
+              <strong>R$ 63,99<span style="font-size:55%;font-family:'DM Sans',sans-serif;font-weight:400;white-space:nowrap"> m²</span></strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="carousel-slide">
+        <img src="img/fotos-carrossel/nordica.png" alt="Nórdica"
+             onerror="this.style.cssText='background:linear-gradient(135deg,#d4c090,#f0e8c8);width:100%;height:100%;object-fit:cover'">
+        <div class="carousel-overlay"></div>
+        <div class="carousel-info">
+          <div>
+            <p class="carousel-color-name">Nórdica</p>
+            <p class="carousel-color-sub">Tom mel · Aconchegante · Orgânico</p>
+          </div>
+          <div class="carousel-side">
+            <span class="carousel-badge">Em Promoção</span>
+            <div class="carousel-price-box">
+              Piso + Manta + Instalação
+              <strong>R$ 63,99<span style="font-size:55%;font-family:'DM Sans',sans-serif;font-weight:400;white-space:nowrap"> m²</span></strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="carousel-nav">
+    <button class="nav-btn" onclick="changeSlide(-1)">&#8592;</button>
+    <div class="carousel-dots" id="dots"></div>
+    <button class="nav-btn" onclick="changeSlide(1)">&#8594;</button>
+  </div>
+
+  <div class="thumb-strip" id="thumbs">
+    <div class="thumb active" onclick="goToSlide(0)">
+      <img src="img/fotos-carrossel/Carvalho-york1.png" alt="Carvalho York"
+           onerror="this.style.background='#8B6A35'">
+      <span class="thumb-label">Carvalho York</span>
+    </div>
+    <div class="thumb" onclick="goToSlide(1)">
+      <img src="img/fotos-carrossel/itapua1.jpeg" alt="Itapuã"
+           onerror="this.style.background='#C8A87A'">
+      <span class="thumb-label">Itapuã</span>
+    </div>
+    <div class="thumb" onclick="goToSlide(2)">
+      <img src="img/fotos-carrossel/milao1.png" alt="Milão"
+           onerror="this.style.background='#6A7080'">
+      <span class="thumb-label">Milão</span>
+    </div>
+    <div class="thumb" onclick="goToSlide(3)">
+      <img src="img/fotos-carrossel/nordica1.png" alt="Nórdica"
+           onerror="this.style.background='#D4C090'">
+      <span class="thumb-label">Nórdica</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CALCULADORA ══════════ -->
+<section class="calc-section section" id="calculadora">
+  <div class="container">
+    <div class="center" style="margin-bottom:3rem">
+      <span class="section-eyebrow" style="color:rgba(50,127,164,0.85)">Orçamento instantâneo</span>
+      <h2 class="section-title white">Calcule o seu piso</h2>
+      <div class="section-divider" style="margin:0.9rem auto 1.25rem"></div>
+      <p class="section-sub" style="color:rgba(255,255,255,0.45);margin:0 auto">
+        Informe a metragem do ambiente — calculamos caixas, sobra e valor total com precisão.
+      </p>
+    </div>
+
+    <div class="calc-layout">
+
+      <!-- FORM -->
+      <div class="calc-form-box">
+
+        <!-- Área real -->
+        <div class="calc-group">
+          <label class="calc-label" for="inputArea">Área real do ambiente (m²)</label>
+          <input type="number" id="inputArea" class="calc-input" placeholder="Ex.: 30" min="1" max="999" step="0.1" oninput="calcUpdate()">
+          <p class="calc-input-hint">Digite a metragem total do cômodo (sem acréscimos — calculamos a perda automaticamente).</p>
+        </div>
+
+        <!-- Cor do piso -->
+        <div class="calc-group">
+          <label class="calc-label" for="selectCorCalc">Cor escolhida</label>
+          <select id="selectCorCalc" class="calc-select" onchange="calcUpdate()">
+            <option value="Carvalho York">Carvalho York</option>
+            <option value="Itapuã">Itapuã</option>
+            <option value="Milão">Milão</option>
+            <option value="Nórdica">Nórdica</option>
+          </select>
+        </div>
+
+        <!-- Rodapé toggle -->
+        <button class="rodape-toggle-btn" id="rodapeBtn" onclick="toggleRodape()">+ Incluir Rodapé</button>
+
+        <div class="rodape-options" id="rodapeOptions">
+          <label class="calc-label" style="margin-bottom:0.75rem">Escolha a altura do rodapé</label>
+          <div class="rodape-grid" id="rodapeGrid">
+            <div class="rodape-opt active" data-size="7cm" data-price="11.99" onclick="selectRodape(this)">
+              <span class="rodape-opt-size">7 cm</span>
+              <p class="rodape-opt-price">R$ 11,99 m</p>
+            </div>
+            <div class="rodape-opt" data-size="10cm" data-price="17.99" onclick="selectRodape(this)">
+              <span class="rodape-opt-size">10 cm</span>
+              <p class="rodape-opt-price">R$ 17,99 m</p>
+            </div>
+            <div class="rodape-opt" data-size="12cm" data-price="26.99" onclick="selectRodape(this)">
+              <span class="rodape-opt-size">12 cm</span>
+              <p class="rodape-opt-price">R$ 26,99 m</p>
+            </div>
+            <div class="rodape-opt" data-size="15cm" data-price="43.99" onclick="selectRodape(this)">
+              <span class="rodape-opt-size">15 cm</span>
+              <p class="rodape-opt-price">R$ 43,99 m</p>
+            </div>
+            <div class="rodape-opt" data-size="20cm" data-price="48.99" onclick="selectRodape(this)">
+              <span class="rodape-opt-size">20 cm</span>
+              <p class="rodape-opt-price">R$ 48,99 m</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Acessórios -->
+        <hr style="border:none;border-top:1px solid rgba(255,255,255,0.08);margin:1.5rem 0">
+        <label class="calc-label">Acessórios de acabamento</label>
+        <div class="acess-block">
+          <div class="acess-item">
+            <div class="acess-check checked" id="chkTransicao" onclick="toggleAcess('chkTransicao')">✓</div>
+            <div class="acess-info" onclick="toggleAcess('chkTransicao')">
+              <p class="acess-name">Barra de Transição Tecno 1,80m</p>
+              <p class="acess-desc">Emenda laminado × laminado (até 2 portas)</p>
+            </div>
+            <div class="acess-qty-wrap" id="qtyWrapTransicao">
+              <button class="qty-btn" onclick="changeQty('qtyTransicao',-1)">−</button>
+              <span class="qty-val" id="qtyTransicao">1</span>
+              <button class="qty-btn" onclick="changeQty('qtyTransicao',1)">+</button>
+            </div>
+            <p class="acess-price">R$ 89,99</p>
+          </div>
+          <div class="acess-item">
+            <div class="acess-check checked" id="chkRedutor" onclick="toggleAcess('chkRedutor')">✓</div>
+            <div class="acess-info" onclick="toggleAcess('chkRedutor')">
+              <p class="acess-name">Barra de Redutor Alum. 3m</p>
+              <p class="acess-desc">Emenda laminado × piso frio (até 3 portas)</p>
+            </div>
+            <div class="acess-qty-wrap" id="qtyWrapRedutor">
+              <button class="qty-btn" onclick="changeQty('qtyRedutor',-1)">−</button>
+              <span class="qty-val" id="qtyRedutor">1</span>
+              <button class="qty-btn" onclick="changeQty('qtyRedutor',1)">+</button>
+            </div>
+            <p class="acess-price">R$ 89,99</p>
+          </div>
+          <div class="acess-item">
+            <div class="acess-check" id="chkCantoneira" onclick="toggleAcess('chkCantoneira')"></div>
+            <div class="acess-info" onclick="toggleAcess('chkCantoneira')">
+              <p class="acess-name">Barra de Cantoneira Alum. 3m</p>
+              <p class="acess-desc">Arremate portas estilo sacada</p>
+            </div>
+            <div class="acess-qty-wrap" id="qtyWrapCantoneira" style="opacity:0.3;pointer-events:none">
+              <button class="qty-btn" onclick="changeQty('qtyCantoneira',-1)">−</button>
+              <span class="qty-val" id="qtyCantoneira">1</span>
+              <button class="qty-btn" onclick="changeQty('qtyCantoneira',1)">+</button>
+            </div>
+            <p class="acess-price">R$ 89,99</p>
+          </div>
+        </div>
+
+        <!-- Remoção de laminado e rodapé antigo -->
+        <div class="remocao-block">
+          <div class="remocao-row">
+            <p class="remocao-label">Remover laminado e rodapé antigo <span style="color:rgba(255,255,255,0.3)">(R$ 6,50 m²)</span></p>
+            <label class="toggle-switch">
+              <input type="checkbox" id="chkRemocao" onchange="calcUpdate()">
+              <span class="toggle-track"></span>
+              <span class="toggle-thumb"></span>
+            </label>
+          </div>
+          <p class="remocao-note">⚠ Descarte do resíduo não incluso — consulte disponibilidade.</p>
+        </div>
+
+        <!-- Remoção apenas de rodapé antigo -->
+        <div class="remocao-block" style="margin-top:0.75rem">
+          <div class="remocao-row">
+            <p class="remocao-label">Remover rodapé antigo <span style="color:rgba(255,255,255,0.3)">(R$ 5,50 m²)</span></p>
+            <label class="toggle-switch">
+              <input type="checkbox" id="chkRemocaoRodape" onchange="calcUpdate()">
+              <span class="toggle-track"></span>
+              <span class="toggle-thumb"></span>
+            </label>
+          </div>
+          <p class="remocao-note">⚠ Descarte do resíduo não incluso — consulte disponibilidade.</p>
+        </div>
+
+      </div><!-- /form -->
+
+      <!-- RESULTADO + BOTÃO (wrapper sticky) -->
+      <div style="position:sticky;top:1.5rem">
+
+        <div class="calc-result-box" id="calcResult" style="position:static">
+          <p class="result-heading">Orçamento detalhado</p>
+          <div id="resultBody">
+            <p style="color:rgba(255,255,255,0.3);font-size:0.85rem;text-align:center;padding:2rem 0">
+              Informe a metragem para calcular →
+            </p>
+          </div>
+        </div><!-- /result -->
+
+        <p class="calc-disclaimer" id="calcDisclaimer" style="display:none;margin-top:0.4rem;text-align:center">
+          ⓘ Orçamento estimado com base nas informações fornecidas. Valores sujeitos a confirmação mediante visita técnica. Pagamento PIX à vista.
+        </p>
+
+      </div><!-- /sticky wrapper -->
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SIMULADOR ══════════ -->
+<section class="sim-section section" id="simulador">
+  <div class="container">
+    <div class="center" style="margin-bottom:3rem">
+      <span class="section-eyebrow">Tecnologia exclusiva</span>
+      <h2 class="section-title">Simule o Piso na Sua Casa</h2>
+      <div class="section-divider" style="margin:0.9rem auto 1.25rem"></div>
+      <p class="section-sub" style="margin:0 auto">
+        Envie uma foto do ambiente e nossa IA mostra como ficaria com o Durafloor New Way instalado.
+      </p>
+    </div>
+    <div class="sim-grid">
+      <div class="sim-panel">
+        <p class="sim-step-label"><span class="sim-step-num">1</span> Envie a foto do ambiente</p>
+        <div class="upload-zone">
+          <input type="file" accept="image/*" id="photoInput" onchange="onPhotoSelected(event)">
+          <div class="upload-icon">📸</div>
+          <p class="upload-text">
+            <strong>Clique para selecionar</strong>
+            Foto do seu cômodo · JPG ou PNG · Máx. 10MB
+          </p>
+        </div>
+        <p class="sim-step-label" style="margin-top:0.25rem"><span class="sim-step-num">2</span> Escolha a cor do piso</p>
+        <div class="color-swatches">
+          <div class="swatch active" onclick="selectColor(0,this)" data-color="Carvalho York">
+            <img src="img/fotos-carrossel/Carvalho-york1.png" alt="Carvalho York" onerror="this.style.background='#8B6A35'">
+            <span class="swatch-name">York</span>
+          </div>
+          <div class="swatch" onclick="selectColor(1,this)" data-color="Itapuã">
+            <img src="img/fotos-carrossel/itapua1.jpeg" alt="Itapuã" onerror="this.style.background='#C8A87A'">
+            <span class="swatch-name">Itapuã</span>
+          </div>
+          <div class="swatch" onclick="selectColor(2,this)" data-color="Milão">
+            <img src="img/fotos-carrossel/milao1.png" alt="Milão" onerror="this.style.background='#6A7080'">
+            <span class="swatch-name">Milão</span>
+          </div>
+          <div class="swatch" onclick="selectColor(3,this)" data-color="Nórdica">
+            <img src="img/fotos-carrossel/nordica1.png" alt="Nórdica" onerror="this.style.background='#D4C090'">
+            <span class="swatch-name">Nórdica</span>
+          </div>
+        </div>
+        <button class="sim-run-btn" id="simBtn" onclick="runSimulation()" disabled>
+          ✨ Simular com IA →
+        </button>
+        <p class="sim-disclaimer">
+          ⓘ A IA analisa seu ambiente e descreve como ficaria com o piso. O resultado visual é ilustrativo — cores reais variam conforme iluminação.
+        </p>
+      </div>
+      <div>
+        <div class="sim-preview" id="simPreview">
+          <div class="sim-placeholder" id="simPlaceholder">
+            <span class="sim-placeholder-icon">🏠</span>
+            <p>Envie uma foto para<br>iniciar a simulação</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ GARANTIAS ══════════ -->
+<section class="guarantee-section">
+  <div class="container center">
+    <span class="section-eyebrow">Qualidade comprovada</span>
+    <h2 class="section-title white" style="margin-top:0.4rem">Por que Durafloor New Way?</h2>
+    <div class="section-divider" style="margin:0.9rem auto 0"></div>
+    <div class="guarantee-grid">
+      <div class="guarantee-item">
+        <p class="guarantee-num">25</p>
+        <div class="guarantee-divider"></div>
+        <p class="guarantee-label">Anos de garantia<br>residencial</p>
+      </div>
+      <div class="guarantee-item">
+        <p class="guarantee-num">AC4</p>
+        <div class="guarantee-divider"></div>
+        <p class="guarantee-label">Padrão de<br>auto tráfego</p>
+      </div>
+      <div class="guarantee-item">
+        <p class="guarantee-num">5</p>
+        <div class="guarantee-divider"></div>
+        <p class="guarantee-label">Anos de garantia<br>comercial</p>
+      </div>
+      <div class="guarantee-item">
+        <p class="guarantee-num">💧</p>
+        <div class="guarantee-divider"></div>
+        <p class="guarantee-label">Resistência<br>à umidade</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FINAL CTA ══════════ -->
+<section class="final-cta">
+  <p style="font-size:10px;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:0.6rem">Oferta por tempo limitado</p>
+  <h2 class="final-cta-title">Garanta já o seu<br>piso premium</h2>
+  <p class="final-cta-sub">R$ 63,99 m² no PIX — piso, manta e instalação incluídos. Sem surpresas.</p>
+  <div class="final-cta-btns">
+    <button class="btn-white" onclick="solicitarOrcamento()">Falar com especialista →</button>
+    <a href="#calculadora" class="btn-outline-white">Calcular meu orçamento</a>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <p class="footer-brand">Decorcom Interiores</p>
+  <p>Piso Laminado Durafloor New Way · AC4 Auto Tráfego · 25 anos de garantia residencial</p>
+  <p style="margin-top:0.35rem">R$ 63,99 m² no PIX — Piso + Manta + Instalação</p>
+</footer>
+
+<!-- WA FLOAT -->
+<a href="https://wa.me/5541999999999?text=Olá!%20Tenho%20interesse%20no%20Piso%20Durafloor%20New%20Way%20por%20R%24%2063%2C99%2Fm²"
+   class="wa-float" target="_blank" title="WhatsApp">
+  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="#fff">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<script>
+// ── CAROUSEL ──
+let current = 0;
+const slides   = document.querySelectorAll('.carousel-slide');
+const track    = document.getElementById('track');
+const dotsEl   = document.getElementById('dots');
+const thumbEls = document.querySelectorAll('.thumb');
+
+slides.forEach((_,i) => {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i===0?' active':'');
+  d.onclick = () => goToSlide(i);
+  dotsEl.appendChild(d);
+});
+
+function goToSlide(n) {
+  current = ((n % slides.length) + slides.length) % slides.length;
+  track.style.transform = `translateX(-${current*100}%)`;
+  document.querySelectorAll('.dot').forEach((d,i) => d.classList.toggle('active', i===current));
+  thumbEls.forEach((t,i) => t.classList.toggle('active', i===current));
+}
+function changeSlide(dir) { goToSlide(current + dir); }
+
+let tx = 0;
+track.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, {passive:true});
+track.addEventListener('touchend',   e => {
+  const dx = e.changedTouches[0].clientX - tx;
+  if (Math.abs(dx) > 50) changeSlide(dx < 0 ? 1 : -1);
+});
+
+setInterval(() => changeSlide(1), 5500);
+
+// ── CALCULATOR ──
+const PISO_PRICE   = 63.99;
+const CAIXA_M2     = 2.5;     // m² por caixa Durafloor New Way
+const PERDA_PCT    = 0.10;    // 10% de perda padrão
+const RODAPE_BAR   = 2.40;    // metros por barra de rodapé
+const REMOCAO_M2        = 6.50;   // R$/m² remoção laminado antigo
+const REMOCAO_RODAPE_M2 = 5.50;   // R$/m² remoção rodapé antigo
+const ENTREGA      = 160.00;
+const ACESS_PRICE  = 89.99;
+const CARTAO_TAXA  = 0.11;    // 11% cartão
+const CARTAO_PARC  = 10;
+
+const fmtBR = (n, d=2) => {
+  const parts = n.toFixed(d).split('.');
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  return parts.join(',');
+};
+
+let rodapeAtivo = false;
+let rodapePrecoUnitario = 11.99;
+let rodapeSizeLabel = '7cm';
+
+function toggleRodape() {
+  rodapeAtivo = !rodapeAtivo;
+  const btn  = document.getElementById('rodapeBtn');
+  const opts = document.getElementById('rodapeOptions');
+  btn.textContent  = rodapeAtivo ? '− Remover Rodapé' : '+ Incluir Rodapé';
+  btn.classList.toggle('active', rodapeAtivo);
+  opts.classList.toggle('show', rodapeAtivo);
+  calcUpdate();
+}
+
+function selectRodape(el) {
+  document.querySelectorAll('.rodape-opt').forEach(o => o.classList.remove('active'));
+  el.classList.add('active');
+  rodapePrecoUnitario = parseFloat(el.dataset.price);
+  rodapeSizeLabel     = el.dataset.size;
+  calcUpdate();
+}
+
+function toggleAcess(id) {
+  const el = document.getElementById(id);
+  const isChecked = el.classList.contains('checked');
+  el.classList.toggle('checked', !isChecked);
+  el.textContent = !isChecked ? '✓' : '';
+  // Habilitar / desabilitar seletor de qtd correspondente
+  const qtyMap = { chkTransicao:'qtyWrapTransicao', chkRedutor:'qtyWrapRedutor', chkCantoneira:'qtyWrapCantoneira' };
+  const wrap = document.getElementById(qtyMap[id]);
+  if (wrap) {
+    wrap.style.opacity = !isChecked ? '1' : '0.3';
+    wrap.style.pointerEvents = !isChecked ? 'auto' : 'none';
+  }
+  calcUpdate();
+}
+
+function isChecked(id) {
+  return document.getElementById(id).classList.contains('checked');
+}
+
+function getQty(id) {
+  return parseInt(document.getElementById(id)?.textContent || '1', 10);
+}
+
+function changeQty(id, delta) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const cur = parseInt(el.textContent, 10);
+  const next = Math.max(1, Math.min(10, cur + delta));
+  el.textContent = next;
+  calcUpdate();
+}
+
+function calcUpdate() {
+  const areaStr = document.getElementById('inputArea').value.replace(',', '.');
+  const area    = parseFloat(areaStr);
+  const cor     = document.getElementById('selectCorCalc').value;
+
+  const body    = document.getElementById('resultBody');
+  const disc    = document.getElementById('calcDisclaimer');
+
+  if (!area || area < 1) {
+    body.innerHTML = '<p style="color:rgba(255,255,255,0.3);font-size:0.85rem;text-align:center;padding:2rem 0">Informe a metragem para calcular →</p>';
+    const oldBtn = document.getElementById('calcPdfBtn');
+    if (oldBtn) oldBtn.remove();
+    disc.style.display  = 'none';
+    return;
+  }
+
+  // ── PISO ──
+  const areaComPerda   = area * (1 + PERDA_PCT);               // área + 10%
+  const caixasExatas   = areaComPerda / CAIXA_M2;              // quantas caixas
+  const fracaoUltima   = caixasExatas % 1;                     // fração da última caixa
+  const caixasInt      = Math.floor(caixasExatas);
+  const caixasFinais   = fracaoUltima > 0.40 ? caixasInt + 1 : caixasInt;
+  const m2Final        = caixasFinais * CAIXA_M2;
+  const totalPiso      = m2Final * PISO_PRICE;
+
+  // ── RODAPÉ ──
+  let barrasRodape = 0, m2Rodape = 0, totalRodape = 0, rodapeLabel = '';
+  if (rodapeAtivo) {
+    barrasRodape  = Math.ceil(m2Final / RODAPE_BAR);
+    m2Rodape      = barrasRodape * RODAPE_BAR;
+    totalRodape   = m2Rodape * rodapePrecoUnitario;
+    rodapeLabel   = `Poliestireno ${rodapeSizeLabel}`;
+  }
+
+  // ── ACESSÓRIOS ──
+  const acessItems = [];
+  if (isChecked('chkTransicao'))  { const q=getQty('qtyTransicao');  acessItems.push({ name:`${String(q).padStart(2,'0')} Barra${q>1?'s':''} Transição Tecno 1,80m`, qty:q, price: ACESS_PRICE*q }); }
+  if (isChecked('chkRedutor'))    { const q=getQty('qtyRedutor');    acessItems.push({ name:`${String(q).padStart(2,'0')} Barra${q>1?'s':''} Redutor Alum. 3m`,      qty:q, price: ACESS_PRICE*q }); }
+  if (isChecked('chkCantoneira')) { const q=getQty('qtyCantoneira'); acessItems.push({ name:`${String(q).padStart(2,'0')} Barra${q>1?'s':''} Cantoneira Alum. 3m`,   qty:q, price: ACESS_PRICE*q }); }
+
+  // ── REMOÇÃO ──
+  const comRemocao         = document.getElementById('chkRemocao').checked;
+  const comRemocaoRodape   = document.getElementById('chkRemocaoRodape').checked;
+  const totalRemocao       = comRemocao       ? m2Final * REMOCAO_M2 : 0;
+  const totalRemocaoRodape = comRemocaoRodape ? m2Final * REMOCAO_RODAPE_M2 : 0;
+
+  // ── TAXA MÍNIMA (área < 25m²) ──
+  const taxaMinima = m2Final < 25 ? 350.00 : 0;
+
+  // ── TOTAL ──
+  const acessTotal = acessItems.reduce((s,i) => s + i.price, 0);
+  const totalGeral = totalPiso + totalRodape + acessTotal + ENTREGA + totalRemocao + totalRemocaoRodape + taxaMinima;
+  const parcelado  = totalGeral * (1 + CARTAO_TAXA) / CARTAO_PARC;
+
+  // ── HTML ──
+  let rows = '';
+
+  // Piso
+  rows += row(`${fmtBR(m2Final)} m² Laminado New Way — <em>${cor}</em>`, `R$ ${fmtBR(totalPiso)}`);
+  rows += row(`${caixasFinais} caixas × 2,5 m² · com acréscimo de 10%`, ``, true);
+
+  // Taxa mínima
+  if (taxaMinima > 0) {
+    rows += `<hr class="result-section-sep">`;
+    rows += row('⚠ Taxa mínima de mão de obra <span style="color:rgba(255,255,255,0.3);font-size:0.7rem">(área abaixo de 25 m²)</span>', `R$ ${fmtBR(taxaMinima)}`);
+  }
+
+  // Rodapé
+  if (rodapeAtivo) {
+    rows += `<hr class="result-section-sep">`;
+    rows += row(`${fmtBR(m2Rodape,2)} m Rodapé ${rodapeLabel} (${barrasRodape} barras)`, `R$ ${fmtBR(totalRodape)}`);
+  }
+
+  // Acessórios
+  if (acessItems.length) {
+    rows += `<hr class="result-section-sep">`;
+    acessItems.forEach(a => {
+      rows += row(a.name, `R$ ${fmtBR(a.price)}`);
+    });
+  }
+
+  // Entrega
+  rows += `<hr class="result-section-sep">`;
+  rows += row('Entrega', `R$ ${fmtBR(ENTREGA)}`);
+
+  // Remoção
+  if (comRemocao) {
+    rows += row(`Remoção laminado e rodapé antigo (${fmtBR(m2Final)} m²)`, `R$ ${fmtBR(totalRemocao)}`);
+  }
+  if (comRemocaoRodape) {
+    rows += row(`Remoção rodapé antigo (${fmtBR(m2Final)} m²)`, `R$ ${fmtBR(totalRemocaoRodape)}`);
+  }
+
+  body.innerHTML = rows;
+
+  // Total block
+  const totalEl = document.getElementById('calcResult').querySelector('.result-total-block');
+  if (totalEl) totalEl.remove();
+  document.getElementById('calcResult').insertAdjacentHTML('beforeend', `
+    <div class="result-total-block">
+      <div class="result-total-pix">
+        <div>
+          <p class="result-total-label">Total PIX</p>
+          <p class="result-total-note">pagamento à vista</p>
+        </div>
+        <p class="result-total-val">R$ ${fmtBR(totalGeral)}</p>
+      </div>
+      <p class="result-parcela">Cartão de crédito <strong>10× R$ ${fmtBR(parcelado)}</strong></p>
+    </div>
+  `);
+
+  // Botão PDF — injeta APÓS o #calcResult (fora da caixa sombreada)
+  const existBtn = document.getElementById('calcPdfBtn');
+  if (existBtn) existBtn.remove();
+  document.getElementById('calcResult').insertAdjacentHTML('afterend',
+    `<button id="calcPdfBtn" class="calc-cta-btn" onclick="baixarPDF()"
+      style="background:var(--blue);display:flex;align-items:center;justify-content:center;gap:8px;margin-top:0.4rem;border-radius:2px">
+      ⬇ Baixar Orçamento em PDF
+    </button>`
+  );
+  disc.style.display  = 'block';
+
+  // Guardar para o WA
+  window._calcData = { area, m2Final, caixasFinais, cor, rodapeAtivo, m2Rodape, rodapeLabel,
+    barrasRodape, acessItems, comRemocao, comRemocaoRodape,
+    m2FinalRemocao: m2Final, totalRemocaoRodape, totalRodapeVal: totalRodape,
+    taxaMinima, totalGeral, parcelado };
+}
+
+function row(label, val, muted=false) {
+  return `<div class="result-row">
+    <span class="result-key" style="${muted?'font-size:0.7rem;':''}">
+      ${muted ? `<span style="color:rgba(255,255,255,0.22)">${label}</span>` : label}
+    </span>
+    <span class="result-val">${val}</span>
+  </div>`;
+}
+
+function baixarPDF() {
+  const d = window._calcData;
+  if (!d) return;
+
+  var hoje    = new Date();
+  var dataStr = hoje.toLocaleDateString('pt-BR');
+
+  // Carrega imagem de fundo do banner
+  var bgImg = new Image();
+  bgImg.crossOrigin = 'anonymous';
+  bgImg.onload = bgImg.onerror = function() { renderizarBannerPiso(bgImg.naturalWidth ? bgImg : null); };
+  bgImg.src = 'img/banner-hero.png';
+
+  function renderizarBannerPiso(bgImgEl) {
+    var heroEl = document.getElementById('orcHeroHeader');
+    var heroW  = heroEl ? heroEl.offsetWidth  : 760;
+    var heroH  = heroEl ? heroEl.offsetHeight : 160;
+    var SC = 2;
+    var cvs = document.createElement('canvas');
+    cvs.width  = heroW * SC;
+    cvs.height = heroH * SC;
+    var ctx = cvs.getContext('2d');
+
+    // 1. Fundo escuro
+    ctx.fillStyle = '#1a1a1a';
+    ctx.fillRect(0, 0, cvs.width, cvs.height);
+
+    // 2. Imagem cover centralizada
+    if (bgImgEl) {
+      var iw = bgImgEl.naturalWidth, ih = bgImgEl.naturalHeight;
+      var sc = Math.max(cvs.width / iw, cvs.height / ih);
+      ctx.drawImage(bgImgEl, (cvs.width - iw*sc)/2, (cvs.height - ih*sc)/2, iw*sc, ih*sc);
+    }
+
+    // 3. Overlay escuro 65%
+    ctx.fillStyle = 'rgba(0,0,0,0.65)';
+    ctx.fillRect(0, 0, cvs.width, cvs.height);
+
+    // 4. Logo
+    var logoEl = heroEl ? heroEl.querySelector('.orc-hero-logo') : null;
+    if (logoEl && logoEl.complete && logoEl.naturalWidth) {
+      var lh = 85 * SC, lw = lh * (logoEl.naturalWidth / logoEl.naturalHeight);
+      ctx.drawImage(logoEl, 20*SC, 10*SC, lw, lh);
+    }
+
+    // 5. Data canto inferior esquerdo
+    ctx.fillStyle = 'rgba(255,255,255,0.65)';
+    ctx.font = 'bold ' + (16*SC) + 'px system-ui,sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText(dataStr, 20*SC, (heroH - 12)*SC);
+
+    // 6. Links da direita com SVG reais
+    var links = heroEl ? heroEl.querySelectorAll('.orc-hero-link') : [];
+    var rx = (heroW - 20) * SC;
+    ctx.font = 'bold ' + (19*SC) + 'px system-ui,sans-serif';
+    ctx.textAlign = 'right';
+
+    function desenharLink(i, cb) {
+      if (i >= links.length) { cb(); return; }
+      var linkEl = links[i];
+      var svgEl  = linkEl.querySelector('svg');
+      var texto  = linkEl.textContent.trim();
+      var yPos   = 34*SC + i * 30*SC;
+      ctx.fillStyle = 'rgba(255,255,255,0.88)';
+      ctx.fillText(texto, rx, yPos);
+      var tw = ctx.measureText(texto).width;
+      if (!svgEl) { desenharLink(i+1, cb); return; }
+      try {
+        var sz    = 23 * SC;
+        var clone = svgEl.cloneNode(true);
+        clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+        if (!clone.getAttribute('width'))  clone.setAttribute('width', '24');
+        if (!clone.getAttribute('height')) clone.setAttribute('height', '24');
+        var url = URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(clone)], {type:'image/svg+xml'}));
+        var ico = new Image();
+        ico.onload = function() {
+          ctx.drawImage(ico, rx - tw - 9*SC - sz, yPos - sz*0.82, sz, sz);
+          URL.revokeObjectURL(url);
+          desenharLink(i+1, cb);
+        };
+        ico.onerror = function() { URL.revokeObjectURL(url); desenharLink(i+1, cb); };
+        ico.src = url;
+      } catch(e) { desenharLink(i+1, cb); }
+    }
+
+    desenharLink(0, function() {
+      construirPDFPiso(cvs.toDataURL('image/jpeg', 0.92), cvs.width, cvs.height);
+    });
+  }
+
+  function construirPDFPiso(bannerData, bannerW, bannerH) {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ unit:'mm', format:'a4' });
+    const W = 210, PL = 18, PR = 18, PW = W - PL - PR;
+    const blue      = [50, 127, 164];
+    const dark      = [26, 26, 26];
+    const gray      = [110, 110, 110];
+    const lightgray = [232, 230, 226];
+
+    // ── BANNER ───────────────────────────────────────────
+    const BY = 8;
+    const BH = bannerW > 0 ? (PW * bannerH / bannerW) : 40;
+    doc.addImage(bannerData, 'JPEG', PL, BY, PW, BH, undefined, 'FAST');
+
+    // ── TÍTULO ──────────────────────────────────────────
+    let y = BY + BH + 10;
+  doc.setFontSize(11); doc.setFont('helvetica','bold');
+  doc.setTextColor(...dark);
+  doc.text('ORÇAMENTO DECORCOM', PL, y);
+  doc.setDrawColor(...blue); doc.setLineWidth(0.4);
+  doc.line(PL, y + 2, W - PR, y + 2);
+  y += 10;
+
+  // ── ITENS ───────────────────────────────────────────
+  const addRow = (label, val, muted=false) => {
+    doc.setFontSize(9);
+    doc.setFont('helvetica', muted ? 'normal' : 'normal');
+    doc.setTextColor(muted ? 150 : 40, muted ? 150 : 40, muted ? 150 : 40);
+    doc.text(label, PL, y);
+    if (val) {
+      doc.setFont('helvetica','bold');
+      doc.setTextColor(...dark);
+      doc.text(val, W - PR, y, { align:'right' });
+    }
+    doc.setDrawColor(...lightgray); doc.setLineWidth(0.2);
+    doc.line(PL, y + 1.5, W - PR, y + 1.5);
+    y += 7;
+  };
+
+  // Piso
+  addRow(`${fmtBR(d.m2Final)} m² Laminado New Way — ${d.cor}`, `R$ ${fmtBR(d.m2Final * PISO_PRICE)}`);
+  addRow(`${d.caixasFinais} caixas × 2,5 m² (área informada: ${fmtBR(d.area,1)} m² + 10%)`, '', true);
+
+  // Taxa mínima
+  if (d.taxaMinima > 0) {
+    addRow('Taxa mínima de mão de obra (área abaixo de 25 m²)', `R$ ${fmtBR(d.taxaMinima)}`);
+  }
+
+  // Rodapé
+  if (d.rodapeAtivo) {
+    y += 1;
+    addRow(`${fmtBR(d.m2Rodape)} m Rodapé ${d.rodapeLabel} (${d.barrasRodape} barras)`, `R$ ${fmtBR(d.totalRodapeVal || d.m2Rodape * rodapePrecoUnitario)}`);
+  }
+
+  // Acessórios
+  if (d.acessItems.length) {
+    y += 1;
+    d.acessItems.forEach(a => addRow(a.name, `R$ ${fmtBR(a.price)}`));
+  }
+
+  // Entrega
+  y += 1;
+  addRow('Entrega', `R$ ${fmtBR(ENTREGA)}`);
+
+  // Remoções
+  if (d.comRemocao) {
+    addRow(`Remoção laminado e rodapé antigo (${fmtBR(d.m2FinalRemocao)} m²)`, `R$ ${fmtBR(d.m2FinalRemocao * REMOCAO_M2)}`);
+  }
+  if (d.comRemocaoRodape) {
+    addRow(`Remoção rodapé antigo (${fmtBR(d.m2FinalRemocao)} m²)`, `R$ ${fmtBR(d.totalRemocaoRodape)}`);
+  }
+
+  // ── TOTAL PIX ───────────────────────────────────────
+  y += 4;
+  doc.setFillColor(...lightgray);
+  doc.rect(PL, y - 5, PW, 12, 'F');
+  doc.setFontSize(10); doc.setFont('helvetica','bold'); doc.setTextColor(...dark);
+  doc.text('TOTAL PIX', PL + 3, y + 2);
+  doc.setFontSize(13); doc.setTextColor(...blue);
+  doc.text(`R$ ${fmtBR(d.totalGeral)}`, W - PR, y + 2, { align:'right' });
+  y += 18;
+
+  // ── FORMAS DE PAGAMENTO ─────────────────────────────
+  doc.setFontSize(9); doc.setFont('helvetica','bold'); doc.setTextColor(...dark);
+  doc.text('FORMAS DE PAGAMENTO', PL, y); y += 6;
+
+  // PIX
+  doc.setFontSize(9); doc.setFont('helvetica','bold'); doc.setTextColor(...dark);
+  doc.text('PIX (à vista)', PL, y);
+  doc.setFontSize(11); doc.setFont('helvetica','bold'); doc.setTextColor(...blue);
+  doc.text(`R$ ${fmtBR(d.totalGeral)}`, W - PR, y, { align:'right' });
+  doc.setDrawColor(...lightgray); doc.setLineWidth(0.2);
+  doc.line(PL, y + 2, W - PR, y + 2);
+  y += 8;
+
+  // Crédito 5x
+  const parc5 = d.totalGeral * 1.05 / 5;
+  doc.setFontSize(8.5); doc.setFont('helvetica','normal'); doc.setTextColor(...gray);
+  doc.text('Crédito 5x via link', PL, y);
+  doc.setTextColor(...blue);
+  doc.text(`R$ ${fmtBR(parc5)}/mês`, W - PR, y, { align:'right' });
+  doc.setDrawColor(...lightgray); doc.line(PL, y + 2, W - PR, y + 2);
+  y += 8;
+
+  // Crédito 10x
+  doc.setFontSize(8.5); doc.setFont('helvetica','normal'); doc.setTextColor(...gray);
+  doc.text('Crédito 10x parcelado (loja)', PL, y);
+  doc.setTextColor(...blue);
+  doc.text(`R$ ${fmtBR(d.parcelado)}/mês`, W - PR, y, { align:'right' });
+  y += 12;
+
+  // ── PRAZO DE ENTREGA ────────────────────────────────
+  doc.setFillColor(255, 248, 210);
+  doc.roundedRect(PL, y, PW, 16, 2, 2, 'F');
+  doc.setFontSize(8.5); doc.setFont('helvetica','bold'); doc.setTextColor(100, 80, 0);
+  doc.text('Prazo de entrega:', PL + 3, y + 6);
+  doc.setFont('helvetica','normal');
+  doc.text('3 horas a 2 dias úteis — Curitiba e região metropolitana.', PL + 33, y + 6);
+  doc.setFont('helvetica','normal'); doc.setTextColor(120, 95, 0);
+  doc.text('Precisa hoje? Entre em contato para prioridade na entrega.', PL + 3, y + 12);
+  y += 24;
+
+  // ── RODAPÉ ──────────────────────────────────────────
+  doc.setFontSize(7); doc.setFont('helvetica','normal'); doc.setTextColor(160,160,160);
+  doc.text('Válido por tempo indeterminado · Decorcom Interiores · (41) 3319-8635 · @decorcominteriores', W/2, 285, { align:'center' });
+
+  doc.save(`Orcamento-Decorcom-${dataStr.replace(/\//g,'-')}.pdf`);
+  } // fim construirPDFPiso
+} // fim baixarPDF
+
+function enviarOrcamentoWA() {
+  const d = window._calcData;
+  if (!d) return;
+  let msg = `Olá! Gostaria de receber o orçamento completo:\n\n`;
+  msg += `🪵 *${fmtBR(d.m2Final)} m² Laminado Durafloor New Way — ${d.cor}*\n`;
+  msg += `   ${d.caixasFinais} caixas (área informada: ${fmtBR(d.area,1)} m²)\n`;
+  if (d.rodapeAtivo) {
+    msg += `\n🏠 *Rodapé ${d.rodapeLabel}* — ${d.barrasRodape} barras (${fmtBR(d.m2Rodape)} m)\n`;
+  }
+  if (d.acessItems.length) {
+    msg += `\n🔩 Acessórios:\n`;
+    d.acessItems.forEach(a => { msg += `   • ${a.name}\n`; });
+  }
+  if (d.taxaMinima > 0) {
+    msg += `\n⚠ Taxa mínima de mão de obra: R$ ${fmtBR(d.taxaMinima)}\n`;
+  }
+  if (d.comRemocao) {
+    msg += `\n🔧 Remoção de laminado e rodapé antigo (${fmtBR(d.m2FinalRemocao)} m²)\n`;
+  }
+  if (d.comRemocaoRodape) {
+    msg += `🔧 Remoção de rodapé antigo (${fmtBR(d.m2FinalRemocao)} m²)\n`;
+  }
+  msg += `\n🚚 Entrega inclusa\n`;
+  msg += `\n💰 *Total PIX: R$ ${fmtBR(d.totalGeral)}*\n`;
+  msg += `   Cartão 10× R$ ${fmtBR(d.parcelado)}\n\n`;
+  msg += `Aguardo confirmação! 😊`;
+  window.open(`https://wa.me/5541999999999?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+function solicitarOrcamento() { enviarOrcamentoWA(); }
+
+// ── SIMULATOR ──
+const HF_TOKEN     = ''; // token removido — API pública HF
+let simColorName   = 'Carvalho York';
+let uploadedBase64 = null;
+let uploadedType   = 'image/jpeg';
+
+const colorHue = { 'Carvalho York':15, 'Itapuã':25, 'Milão':200, 'Nórdica':35 };
+const colorOv  = { 'Carvalho York':'#7a5030', 'Itapuã':'#c09050', 'Milão':'#808898', 'Nórdica':'#b89040' };
+const colorDesc = {
+  'Carvalho York': 'medium oak laminate with marked golden and rustic brown grain',
+  'Itapuã':        'natural light wood laminate with soft beige and cream grain',
+  'Milão':         'modern gray laminate with cool-toned wood texture',
+  'Nórdica':       'golden honey laminate with warm tones and delicate organic grain'
+};
+
+function selectColor(idx, el) {
+  simColorName = el.dataset.color;
+  document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function onPhotoSelected(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  uploadedType = file.type || 'image/jpeg';
+  const reader = new FileReader();
+  reader.onload = ev => {
+    uploadedBase64 = ev.target.result.split(',')[1];
+    document.getElementById('simPreview').innerHTML =
+      `<img src="${ev.target.result}" alt="Ambiente" style="width:100%;height:100%;object-fit:cover;border-radius:10px">`;
+    document.getElementById('simBtn').disabled = false;
+  };
+  reader.readAsDataURL(file);
+}
+
+async function runSimulation() {
+  if (!uploadedBase64) return;
+  const preview = document.getElementById('simPreview');
+  const btn     = document.getElementById('simBtn');
+  btn.disabled  = true;
+
+  const msgs = [
+    'Analisando ambiente…',
+    'Detectando área do piso…',
+    'Aplicando textura ' + simColorName + '…',
+    'Gerando simulação com IA…',
+    'Processando imagem…',
+    'Quase pronto…'
+  ];
+  let mi = 0;
+  preview.innerHTML = `<div class="sim-loading"><div class="spinner"></div><p class="loading-text">${msgs[0]}</p></div>`;
+  const iv = setInterval(() => {
+    mi = (mi + 1) % msgs.length;
+    const el = preview.querySelector('.loading-text');
+    if (el) el.textContent = msgs[mi];
+  }, 3000);
+
+  // Fallback visual CSS caso a IA falhe
+  const applyVisualFallback = (motivo) => {
+    const src = `data:${uploadedType};base64,${uploadedBase64}`;
+    const hue = colorHue[simColorName] || 20;
+    const ov  = colorOv[simColorName]  || '#907050';
+    preview.innerHTML = `
+      <div style="position:relative;width:100%;height:100%;min-height:500px;overflow:hidden;border-radius:10px">
+        <img src="${src}" style="width:100%;height:100%;object-fit:cover;
+          filter:hue-rotate(${hue}deg) saturate(0.85) brightness(0.93)">
+        <div style="position:absolute;inset:0;background:${ov};mix-blend-mode:multiply;opacity:0.28"></div>
+        <div style="position:absolute;top:1rem;right:1rem;background:var(--blue);color:#fff;
+          font-size:9px;padding:6px 14px;letter-spacing:2px;text-transform:uppercase;border-radius:2px">
+          Simulação · ${simColorName}
+        </div>
+        ${motivo ? `<div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.55);
+          color:#fff;font-size:11px;padding:8px 14px;text-align:center">${motivo}</div>` : ''}
+      </div>`;
+  };
+
+  try {
+    const prompt = `Replace the floor in this room with ${colorDesc[simColorName]} laminate wood flooring. Keep all furniture, walls, ceiling, windows, doors and decoration exactly as they are. Only change the floor surface. Photorealistic interior design.`;
+
+    // Redimensiona imagem para máx. 512px para acelerar a IA
+    const resizedBase64 = await resizeImage(uploadedBase64, uploadedType, 512);
+
+    const res = await fetch('https://api-inference.huggingface.co/models/timbrooks/instruct-pix2pix', {
+      method: 'POST',
+      headers: Object.assign(
+        { 'Content-Type': 'application/json', 'X-Wait-For-Model': 'true' },
+        HF_TOKEN ? { 'Authorization': `Bearer ${HF_TOKEN}` } : {}
+      ),
+      body: JSON.stringify({
+        inputs: resizedBase64,
+        parameters: {
+          prompt: prompt,
+          negative_prompt: 'blurry, low quality, distorted, changed furniture, changed walls, changed ceiling, noisy',
+          num_inference_steps: 25,
+          image_guidance_scale: 1.4,
+          guidance_scale: 7.5
+        }
+      })
+    });
+
+    clearInterval(iv);
+
+    if (!res.ok) {
+      const errText = await res.text().catch(() => '');
+      console.warn('HF API:', res.status, errText);
+      // Modelo pode estar carregando — tenta informar
+      if (res.status === 503) {
+        applyVisualFallback('⏳ Modelo IA carregando — tente novamente em 30 segundos');
+      } else {
+        applyVisualFallback('⚠ IA indisponível — visualização ilustrativa');
+      }
+      btn.disabled = false;
+      return;
+    }
+
+    const imgBlob = await res.blob();
+    const resultUrl = URL.createObjectURL(imgBlob);
+
+    preview.innerHTML = `
+      <div style="display:flex;flex-direction:column;height:100%;border-radius:10px;overflow:hidden;border:0.5px solid var(--border)">
+        <div style="position:relative;flex:1;min-height:320px;overflow:hidden">
+          <img src="${resultUrl}" style="width:100%;height:100%;object-fit:cover" alt="Simulação IA">
+          <div style="position:absolute;top:1rem;right:1rem;background:var(--blue);color:#fff;
+            font-size:9px;padding:6px 14px;letter-spacing:2px;text-transform:uppercase;border-radius:2px">
+            ✨ Simulação IA · ${simColorName}
+          </div>
+        </div>
+        <div style="background:#fff;padding:0.75rem 1.2rem;display:flex;justify-content:space-between;
+          align-items:center;border-top:1px solid var(--border)">
+          <span style="font-size:0.8rem;color:var(--text2)">Durafloor New Way · ${simColorName}</span>
+          <button onclick="document.getElementById('photoInput').click()"
+            style="background:var(--blue);border:none;color:#fff;font-size:11px;
+            padding:6px 16px;cursor:pointer;border-radius:4px">Nova foto</button>
+        </div>
+        <div style="background:var(--cream);padding:0.9rem 1.2rem;color:var(--text2);
+          font-size:0.78rem;line-height:1.6;border-top:1px solid var(--border)">
+          ⓘ Simulação gerada por IA · Cores e acabamentos reais podem variar conforme a iluminação do ambiente.
+        </div>
+      </div>`;
+
+  } catch(err) {
+    clearInterval(iv);
+    console.error('Simulação erro:', err);
+    applyVisualFallback('⚠ Simulação ilustrativa — verifique sua conexão');
+  }
+
+  btn.disabled = false;
+}
+
+// Redimensiona imagem via canvas para não sobrecarregar a API
+function resizeImage(base64, type, maxPx) {
+  return new Promise(resolve => {
+    const img = new Image();
+    img.onload = () => {
+      const ratio = Math.min(maxPx / img.width, maxPx / img.height, 1);
+      const w = Math.round(img.width  * ratio);
+      const h = Math.round(img.height * ratio);
+      const cvs = document.createElement('canvas');
+      cvs.width = w; cvs.height = h;
+      cvs.getContext('2d').drawImage(img, 0, 0, w, h);
+      // Retorna só o base64 sem o prefixo data:...
+      const full = cvs.toDataURL('image/jpeg', 0.88);
+      resolve(full.split(',')[1]);
+    };
+    img.onerror = () => resolve(base64); // usa original se falhar
+    img.src = `data:${type};base64,${base64}`;
+  });
+}
+</script>
+
+<!-- BANNER OCULTO para geração do PDF — mesmo padrão do rodapé -->
+<div id="orcHeroHeader" style="position:fixed;left:-9999px;top:0;width:760px;height:160px;background:#1a1a1a;overflow:hidden;display:flex;align-items:stretch;">
+  <div class="orc-hero-inner" style="display:flex;align-items:center;justify-content:space-between;width:100%;padding:0 20px;">
+    <div class="orc-hero-left" style="display:flex;flex-direction:column;justify-content:center;gap:4px;">
+      <img class="orc-hero-logo" src="img/logo-hero.png" alt="Decorcom Interiores" style="height:48px;width:auto;">
+    </div>
+    <div class="orc-hero-right" style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+      <a href="https://wa.me/554133198635" target="_blank" class="orc-hero-link" style="display:flex;align-items:center;gap:6px;color:rgba(255,255,255,0.88);font-size:13px;text-decoration:none;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        (41) 3319-8635
+      </a>
+      <a href="https://instagram.com/decorcominteriores" target="_blank" class="orc-hero-link" style="display:flex;align-items:center;gap:6px;color:rgba(255,255,255,0.88);font-size:13px;text-decoration:none;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="url(#ig-grad-piso)">
+          <defs>
+            <linearGradient id="ig-grad-piso" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#f09433"/>
+              <stop offset="25%" style="stop-color:#e6683c"/>
+              <stop offset="50%" style="stop-color:#dc2743"/>
+              <stop offset="75%" style="stop-color:#cc2366"/>
+              <stop offset="100%" style="stop-color:#bc1888"/>
+            </linearGradient>
+          </defs>
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        </svg>
+        @decorcominteriores
+      </a>
+      <a href="#" class="orc-hero-link" style="display:flex;align-items:center;gap:6px;color:rgba(255,255,255,0.88);font-size:13px;text-decoration:none;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Rua A. O. Rodrigues, 297 — Capão da Imbuia
+      </a>
+    </div>
+  </div>
+</div>
+</body>
+</html>
