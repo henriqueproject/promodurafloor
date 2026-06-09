@@ -1633,19 +1633,92 @@ function enviarOrcamentoWA() {
 function solicitarOrcamento() { enviarOrcamentoWA(); }
 
 // ── SIMULATOR ──
-const HF_TOKEN     = ''; // token removido — API pública HF
 let simColorName   = 'Carvalho York';
 let uploadedBase64 = null;
 let uploadedType   = 'image/jpeg';
 
-const colorHue = { 'Carvalho York':15, 'Itapuã':25, 'Milão':200, 'Nórdica':35 };
-const colorOv  = { 'Carvalho York':'#7a5030', 'Itapuã':'#c09050', 'Milão':'#808898', 'Nórdica':'#b89040' };
-const colorDesc = {
-  'Carvalho York': 'medium oak laminate with marked golden and rustic brown grain',
-  'Itapuã':        'natural light wood laminate with soft beige and cream grain',
-  'Milão':         'modern gray laminate with cool-toned wood texture',
-  'Nórdica':       'golden honey laminate with warm tones and delicate organic grain'
+// Parâmetros HSL de cada cor de piso para manipulação de pixels
+const floorColors = {
+  'Carvalho York': { h: 28,  s: 0.44, strength: 0.52 },
+  'Itapuã':        { h: 38,  s: 0.26, strength: 0.46 },
+  'Milão':         { h: 220, s: 0.07, strength: 0.48 },
+  'Nórdica':       { h: 36,  s: 0.40, strength: 0.50 }
 };
+
+function hue2rgb(p, q, t) {
+  if (t < 0) t += 1;
+  if (t > 1) t -= 1;
+  if (t < 1/6) return p + (q - p) * 6 * t;
+  if (t < 1/2) return q;
+  if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+  return p;
+}
+
+// Aplica tonalidade do piso preservando luminosidade (sem API, 100% local)
+function aplicarTonalidade(base64, type, colorName) {
+  return new Promise(resolve => {
+    const img = new Image();
+    img.onload = () => {
+      const cvs = document.createElement('canvas');
+      cvs.width = img.width; cvs.height = img.height;
+      const ctx = cvs.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+
+      const px  = ctx.getImageData(0, 0, cvs.width, cvs.height);
+      const d   = px.data;
+      const cfg = floorColors[colorName] || { h:30, s:0.35, strength:0.5 };
+      const th  = cfg.h / 360;
+
+      for (let i = 0; i < d.length; i += 4) {
+        const r = d[i]/255, g = d[i+1]/255, b = d[i+2]/255;
+
+        // RGB → HSL
+        const mx = Math.max(r,g,b), mn = Math.min(r,g,b);
+        const l  = (mx + mn) / 2;
+        let h = 0, s = 0;
+        if (mx !== mn) {
+          const dd = mx - mn;
+          s = l > 0.5 ? dd/(2-mx-mn) : dd/(mx+mn);
+          switch(mx) {
+            case r: h=((g-b)/dd+(g<b?6:0))/6; break;
+            case g: h=((b-r)/dd+2)/6; break;
+            case b: h=((r-g)/dd+4)/6; break;
+          }
+        }
+
+        // Peso vertical — piso aparece mais no terço inferior
+        const row = Math.floor((i/4) / cvs.width);
+        const vw  = Math.min(Math.max((row/cvs.height - 0.25) / 0.65, 0), 1);
+        const str = cfg.strength * vw;
+
+        // Desloca matiz e saturação em direção ao tom do piso
+        const nh = (h + (th - h) * str * 0.9 + 1) % 1;
+        const ns = Math.min(1, s + (cfg.s - s) * str * 0.65);
+        const nl = l; // luminosidade intacta
+
+        // HSL → RGB
+        let nr, ng2, nb;
+        if (ns === 0) { nr=ng2=nb=nl; }
+        else {
+          const q2 = nl < 0.5 ? nl*(1+ns) : nl+ns-nl*ns;
+          const p2 = 2*nl - q2;
+          nr  = hue2rgb(p2, q2, nh+1/3);
+          ng2 = hue2rgb(p2, q2, nh);
+          nb  = hue2rgb(p2, q2, nh-1/3);
+        }
+
+        d[i]   = Math.round(nr*255);
+        d[i+1] = Math.round(ng2*255);
+        d[i+2] = Math.round(nb*255);
+      }
+
+      ctx.putImageData(px, 0, 0);
+      resolve(cvs.toDataURL('image/jpeg', 0.92));
+    };
+    img.onerror = () => resolve(`data:${type};base64,${base64}`);
+    img.src = `data:${type};base64,${base64}`;
+  });
+}
 
 function selectColor(idx, el) {
   simColorName = el.dataset.color;
@@ -1673,90 +1746,18 @@ async function runSimulation() {
   const btn     = document.getElementById('simBtn');
   btn.disabled  = true;
 
-  const msgs = [
-    'Analisando ambiente…',
-    'Detectando área do piso…',
-    'Aplicando textura ' + simColorName + '…',
-    'Gerando simulação com IA…',
-    'Processando imagem…',
-    'Quase pronto…'
-  ];
-  let mi = 0;
-  preview.innerHTML = `<div class="sim-loading"><div class="spinner"></div><p class="loading-text">${msgs[0]}</p></div>`;
-  const iv = setInterval(() => {
-    mi = (mi + 1) % msgs.length;
-    const el = preview.querySelector('.loading-text');
-    if (el) el.textContent = msgs[mi];
-  }, 3000);
-
-  // Fallback visual CSS caso a IA falhe
-  const applyVisualFallback = (motivo) => {
-    const src = `data:${uploadedType};base64,${uploadedBase64}`;
-    const hue = colorHue[simColorName] || 20;
-    const ov  = colorOv[simColorName]  || '#907050';
-    preview.innerHTML = `
-      <div style="position:relative;width:100%;height:100%;min-height:500px;overflow:hidden;border-radius:10px">
-        <img src="${src}" style="width:100%;height:100%;object-fit:cover;
-          filter:hue-rotate(${hue}deg) saturate(0.85) brightness(0.93)">
-        <div style="position:absolute;inset:0;background:${ov};mix-blend-mode:multiply;opacity:0.28"></div>
-        <div style="position:absolute;top:1rem;right:1rem;background:var(--blue);color:#fff;
-          font-size:9px;padding:6px 14px;letter-spacing:2px;text-transform:uppercase;border-radius:2px">
-          Simulação · ${simColorName}
-        </div>
-        ${motivo ? `<div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.55);
-          color:#fff;font-size:11px;padding:8px 14px;text-align:center">${motivo}</div>` : ''}
-      </div>`;
-  };
+  preview.innerHTML = `<div class="sim-loading"><div class="spinner"></div><p class="loading-text">Aplicando tonalidade ${simColorName}…</p></div>`;
 
   try {
-    const prompt = `Replace the floor in this room with ${colorDesc[simColorName]} laminate wood flooring. Keep all furniture, walls, ceiling, windows, doors and decoration exactly as they are. Only change the floor surface. Photorealistic interior design.`;
-
-    // Redimensiona imagem para máx. 512px para acelerar a IA
-    const resizedBase64 = await resizeImage(uploadedBase64, uploadedType, 512);
-
-    const res = await fetch('https://api-inference.huggingface.co/models/timbrooks/instruct-pix2pix', {
-      method: 'POST',
-      headers: Object.assign(
-        { 'Content-Type': 'application/json', 'X-Wait-For-Model': 'true' },
-        HF_TOKEN ? { 'Authorization': `Bearer ${HF_TOKEN}` } : {}
-      ),
-      body: JSON.stringify({
-        inputs: resizedBase64,
-        parameters: {
-          prompt: prompt,
-          negative_prompt: 'blurry, low quality, distorted, changed furniture, changed walls, changed ceiling, noisy',
-          num_inference_steps: 25,
-          image_guidance_scale: 1.4,
-          guidance_scale: 7.5
-        }
-      })
-    });
-
-    clearInterval(iv);
-
-    if (!res.ok) {
-      const errText = await res.text().catch(() => '');
-      console.warn('HF API:', res.status, errText);
-      // Modelo pode estar carregando — tenta informar
-      if (res.status === 503) {
-        applyVisualFallback('⏳ Modelo IA carregando — tente novamente em 30 segundos');
-      } else {
-        applyVisualFallback('⚠ IA indisponível — visualização ilustrativa');
-      }
-      btn.disabled = false;
-      return;
-    }
-
-    const imgBlob = await res.blob();
-    const resultUrl = URL.createObjectURL(imgBlob);
+    const resultDataUrl = await aplicarTonalidade(uploadedBase64, uploadedType, simColorName);
 
     preview.innerHTML = `
       <div style="display:flex;flex-direction:column;height:100%;border-radius:10px;overflow:hidden;border:0.5px solid var(--border)">
         <div style="position:relative;flex:1;min-height:320px;overflow:hidden">
-          <img src="${resultUrl}" style="width:100%;height:100%;object-fit:cover" alt="Simulação IA">
+          <img src="${resultDataUrl}" style="width:100%;height:100%;object-fit:cover" alt="Simulação">
           <div style="position:absolute;top:1rem;right:1rem;background:var(--blue);color:#fff;
             font-size:9px;padding:6px 14px;letter-spacing:2px;text-transform:uppercase;border-radius:2px">
-            ✨ Simulação IA · ${simColorName}
+            Simulação · ${simColorName}
           </div>
         </div>
         <div style="background:#fff;padding:0.75rem 1.2rem;display:flex;justify-content:space-between;
@@ -1768,37 +1769,15 @@ async function runSimulation() {
         </div>
         <div style="background:var(--cream);padding:0.9rem 1.2rem;color:var(--text2);
           font-size:0.78rem;line-height:1.6;border-top:1px solid var(--border)">
-          ⓘ Simulação gerada por IA · Cores e acabamentos reais podem variar conforme a iluminação do ambiente.
+          ⓘ Visualização ilustrativa · Cores reais podem variar conforme iluminação do ambiente.
         </div>
       </div>`;
-
   } catch(err) {
-    clearInterval(iv);
     console.error('Simulação erro:', err);
-    applyVisualFallback('⚠ Simulação ilustrativa — verifique sua conexão');
+    preview.innerHTML = `<p style="padding:2rem;color:var(--text2)">Erro ao processar imagem. Tente outra foto.</p>`;
   }
 
   btn.disabled = false;
-}
-
-// Redimensiona imagem via canvas para não sobrecarregar a API
-function resizeImage(base64, type, maxPx) {
-  return new Promise(resolve => {
-    const img = new Image();
-    img.onload = () => {
-      const ratio = Math.min(maxPx / img.width, maxPx / img.height, 1);
-      const w = Math.round(img.width  * ratio);
-      const h = Math.round(img.height * ratio);
-      const cvs = document.createElement('canvas');
-      cvs.width = w; cvs.height = h;
-      cvs.getContext('2d').drawImage(img, 0, 0, w, h);
-      // Retorna só o base64 sem o prefixo data:...
-      const full = cvs.toDataURL('image/jpeg', 0.88);
-      resolve(full.split(',')[1]);
-    };
-    img.onerror = () => resolve(base64); // usa original se falhar
-    img.src = `data:${type};base64,${base64}`;
-  });
 }
 </script>
 
