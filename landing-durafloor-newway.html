@@ -1037,64 +1037,7 @@ footer p { color: rgba(255,255,255,0.3); font-size: 0.78rem; letter-spacing: 0.5
 </section>
 
 <!-- ══════════ SIMULADOR ══════════ -->
-<section class="sim-section section" id="simulador">
-  <div class="container">
-    <div class="center" style="margin-bottom:3rem">
-      <span class="section-eyebrow">Tecnologia exclusiva</span>
-      <h2 class="section-title">Simule o Piso na Sua Casa</h2>
-      <div class="section-divider" style="margin:0.9rem auto 1.25rem"></div>
-      <p class="section-sub" style="margin:0 auto">
-        Envie uma foto do ambiente e nossa IA mostra como ficaria com o Durafloor New Way instalado.
-      </p>
-    </div>
-    <div class="sim-grid">
-      <div class="sim-panel">
-        <p class="sim-step-label"><span class="sim-step-num">1</span> Envie a foto do ambiente</p>
-        <div class="upload-zone">
-          <input type="file" accept="image/*" id="photoInput" onchange="onPhotoSelected(event)">
-          <div class="upload-icon">📸</div>
-          <p class="upload-text">
-            <strong>Clique para selecionar</strong>
-            Foto do seu cômodo · JPG ou PNG · Máx. 10MB
-          </p>
-        </div>
-        <p class="sim-step-label" style="margin-top:0.25rem"><span class="sim-step-num">2</span> Escolha a cor do piso</p>
-        <div class="color-swatches">
-          <div class="swatch active" onclick="selectColor(0,this)" data-color="Carvalho York">
-            <img src="img/fotos-carrossel/Carvalho-york1.jpg" alt="Carvalho York" onerror="this.style.background='#8B6A35'">
-            <span class="swatch-name">York</span>
-          </div>
-          <div class="swatch" onclick="selectColor(1,this)" data-color="Itapuã">
-            <img src="img/fotos-carrossel/itapua1.jpg" alt="Itapuã" onerror="this.style.background='#C8A87A'">
-            <span class="swatch-name">Itapuã</span>
-          </div>
-          <div class="swatch" onclick="selectColor(2,this)" data-color="Milão">
-            <img src="img/fotos-carrossel/milao1.jpg" alt="Milão" onerror="this.style.background='#6A7080'">
-            <span class="swatch-name">Milão</span>
-          </div>
-          <div class="swatch" onclick="selectColor(3,this)" data-color="Nórdica">
-            <img src="img/fotos-carrossel/nordica1.jpg" alt="Nórdica" onerror="this.style.background='#D4C090'">
-            <span class="swatch-name">Nórdica</span>
-          </div>
-        </div>
-        <button class="sim-run-btn" id="simBtn" onclick="runSimulation()" disabled>
-          ✨ Simular com IA →
-        </button>
-        <p class="sim-disclaimer">
-          ⓘ A IA analisa seu ambiente e descreve como ficaria com o piso. O resultado visual é ilustrativo — cores reais variam conforme iluminação.
-        </p>
-      </div>
-      <div>
-        <div class="sim-preview" id="simPreview">
-          <div class="sim-placeholder" id="simPlaceholder">
-            <span class="sim-placeholder-icon">🏠</span>
-            <p>Envie uma foto para<br>iniciar a simulação</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+
 
 <!-- ══════════ GARANTIAS ══════════ -->
 <section class="guarantee-section">
