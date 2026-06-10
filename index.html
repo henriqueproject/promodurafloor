@@ -1514,7 +1514,8 @@ function baixarPDF() {
 
   // Piso
   addRow(`${fmtBR(d.m2Final)} m² Laminado New Way — ${d.cor}`, `R$ ${fmtBR(d.m2Final * PISO_PRICE)}`);
-  addRow(`${d.caixasFinais} caixas × 2,5 m² (área informada: ${fmtBR(d.area,1)} m² + 10%)`, '', true);
+  addRow(`${d.caixasFinais} caixas × 2,5 m² (área informada: ${fmtBR(d.area,1)} m² + 10%) · R$ 63,99/m²`, '', true);
+  addRow('Piso + Manta + Instalação', '', true);
 
   // Taxa mínima
   if (d.taxaMinima > 0) {
@@ -1525,6 +1526,7 @@ function baixarPDF() {
   if (d.rodapeAtivo) {
     y += 1;
     addRow(`${fmtBR(d.m2Rodape)} m Rodapé ${d.rodapeLabel} (${d.barrasRodape} barras)`, `R$ ${fmtBR(d.totalRodapeVal || d.m2Rodape * rodapePrecoUnitario)}`);
+    addRow(`R$ ${fmtBR(rodapePrecoUnitario, 2)}/metro linear`, '', true);
   }
 
   // Acessórios
