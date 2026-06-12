@@ -1179,7 +1179,10 @@ const PERDA_PCT    = 0.10;    // 10% de perda padrão
 const RODAPE_BAR   = 2.40;    // metros por barra de rodapé
 const REMOCAO_M2        = 6.50;   // R$/m² remoção laminado antigo
 const REMOCAO_RODAPE_M2 = 5.50;   // R$/m² remoção rodapé antigo
-const ENTREGA      = 160.00;
+const ENTREGA      = 140.00;
+const SILICONE_BRANCO_PRICE = 19.99;
+const SILICONE_PU40_PRICE   = 21.99;
+const SILICONE_COV          = 24;   // metros de rodapé por tubo
 const ACESS_PRICE  = 89.99;
 const CARTAO_TAXA  = 0.11;    // 11% cartão
 const CARTAO_PARC  = 10;
@@ -1290,12 +1293,22 @@ function calcUpdate() {
   const totalRemocao       = comRemocao       ? m2Final * REMOCAO_M2 : 0;
   const totalRemocaoRodape = comRemocaoRodape ? m2Final * REMOCAO_RODAPE_M2 : 0;
 
+  // ── SILICONES (apenas se rodapé ativo) ──
+  let qtdSilBranco = 0, totalSilBranco = 0;
+  let qtdSilPU40   = 0, totalSilPU40   = 0;
+  if (rodapeAtivo) {
+    qtdSilBranco  = Math.ceil(m2Rodape / SILICONE_COV);
+    totalSilBranco = qtdSilBranco * SILICONE_BRANCO_PRICE;
+    qtdSilPU40    = Math.ceil(m2Rodape / SILICONE_COV) + 1;
+    totalSilPU40  = qtdSilPU40 * SILICONE_PU40_PRICE;
+  }
+
   // ── TAXA MÍNIMA (área < 25m²) ──
   const taxaMinima = m2Final < 25 ? 350.00 : 0;
 
   // ── TOTAL ──
   const acessTotal = acessItems.reduce((s,i) => s + i.price, 0);
-  const totalGeral = totalPiso + totalRodape + acessTotal + ENTREGA + totalRemocao + totalRemocaoRodape + taxaMinima;
+  const totalGeral = totalPiso + totalRodape + acessTotal + ENTREGA + totalRemocao + totalRemocaoRodape + taxaMinima + totalSilBranco + totalSilPU40;
   const parcelado  = totalGeral * (1 + CARTAO_TAXA) / CARTAO_PARC;
 
   // ── HTML ──
@@ -1326,17 +1339,27 @@ function calcUpdate() {
     });
   }
 
-  // Entrega
-  rows += `<hr class="result-section-sep">`;
-  rows += row('Entrega', `R$ ${fmtBR(ENTREGA)}`);
-
   // Remoção
+  if (comRemocao || comRemocaoRodape) rows += `<hr class="result-section-sep">`;
   if (comRemocao) {
     rows += row(`Remoção laminado e rodapé antigo (${fmtBR(m2Final)} m²)`, `R$ ${fmtBR(totalRemocao)}`);
   }
   if (comRemocaoRodape) {
     rows += row(`Remoção rodapé antigo (${fmtBR(m2Final)} m²)`, `R$ ${fmtBR(totalRemocaoRodape)}`);
   }
+
+  // Silicones
+  if (rodapeAtivo) {
+    rows += `<hr class="result-section-sep">`;
+    rows += row(`${qtdSilBranco} Silicone Branco Acabamento`, `R$ ${fmtBR(totalSilBranco)}`);
+    rows += row(`R$ 19,99/uni · ${qtdSilBranco} tubo${qtdSilBranco>1?'s':''} (1 a cada 24m de rodapé)`, ``, true);
+    rows += row(`${qtdSilPU40} Silicone PU40 (Cola)`, `R$ ${fmtBR(totalSilPU40)}`);
+    rows += row(`R$ 21,99/uni · ${qtdSilPU40} tubo${qtdSilPU40>1?'s':''} (rodapé + perfis)`, ``, true);
+  }
+
+  // Entrega (sempre por último)
+  rows += `<hr class="result-section-sep">`;
+  rows += row('Entrega', `R$ ${fmtBR(ENTREGA)}`);
 
   body.innerHTML = rows;
 
@@ -1535,17 +1558,29 @@ function baixarPDF() {
     d.acessItems.forEach(a => addRow(a.name, `R$ ${fmtBR(a.price)}`));
   }
 
-  // Entrega
-  y += 1;
-  addRow('Entrega', `R$ ${fmtBR(ENTREGA)}`);
-
   // Remoções
   if (d.comRemocao) {
+    y += 1;
     addRow(`Remoção laminado e rodapé antigo (${fmtBR(d.m2FinalRemocao)} m²)`, `R$ ${fmtBR(d.m2FinalRemocao * REMOCAO_M2)}`);
   }
   if (d.comRemocaoRodape) {
     addRow(`Remoção rodapé antigo (${fmtBR(d.m2FinalRemocao)} m²)`, `R$ ${fmtBR(d.totalRemocaoRodape)}`);
   }
+
+  // Silicones
+  if (d.rodapeAtivo) {
+    y += 1;
+    const qSilB = Math.ceil(d.m2Rodape / SILICONE_COV);
+    const qSilP = Math.ceil(d.m2Rodape / SILICONE_COV) + 1;
+    addRow(`${qSilB} Silicone Branco Acabamento`, `R$ ${fmtBR(qSilB * SILICONE_BRANCO_PRICE)}`);
+    addRow(`R$ 19,99/uni · ${qSilB} tubo${qSilB>1?'s':''} (1 a cada 24m de rodapé)`, '', true);
+    addRow(`${qSilP} Silicone PU40 (Cola)`, `R$ ${fmtBR(qSilP * SILICONE_PU40_PRICE)}`);
+    addRow(`R$ 21,99/uni · ${qSilP} tubo${qSilP>1?'s':''} (rodapé + perfis)`, '', true);
+  }
+
+  // Entrega (sempre por último)
+  y += 1;
+  addRow('Entrega', `R$ ${fmtBR(ENTREGA)}`);
 
   // ── TOTAL PIX ───────────────────────────────────────
   y += 4;
