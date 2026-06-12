@@ -1156,9 +1156,10 @@ function startTimers() {
       photos[0].classList.remove('active');
       photos[1].classList.add('active');
     }
-    // Após mais HALF ms: avança cor (só se usuário não selecionou)
+    // Após mais HALF ms: avança cor ou reinicia crossfade da mesma cor
     slideTimer = setTimeout(() => {
       if (!userSelected) goToSlide(current + 1);
+      else startTimers();
     }, HALF);
   }, HALF);
 }
