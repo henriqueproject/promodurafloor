@@ -1030,7 +1030,7 @@ footer p { color: rgba(255,255,255,0.3); font-size: 0.78rem; letter-spacing: 0.5
         <!-- Remoção apenas de rodapé antigo -->
         <div class="remocao-block" style="margin-top:0.75rem">
           <div class="remocao-row">
-            <p class="remocao-label">Remover apenas rodapé antigo <span style="color:rgba(255,255,255,0.3)">(R$ 5,50 m²)</span></p>
+            <p class="remocao-label">Remover apenas rodapé antigo <span style="color:rgba(255,255,255,0.3)">(R$ 4,50 m)</span></p>
             <label class="toggle-switch">
               <input type="checkbox" id="chkRemocaoRodape" onchange="calcUpdate()">
               <span class="toggle-track"></span>
@@ -1174,7 +1174,7 @@ const CAIXA_M2     = 2.5;     // m² por caixa Durafloor New Way
 const PERDA_PCT    = 0.10;    // 10% de perda padrão
 const RODAPE_BAR   = 2.40;    // metros por barra de rodapé
 const REMOCAO_M2        = 6.50;   // R$/m² remoção laminado antigo
-const REMOCAO_RODAPE_M2 = 5.50;   // R$/m² remoção rodapé antigo
+const REMOCAO_RODAPE_M2 = 4.50;   // R$/m remoção rodapé antigo
 const ENTREGA      = 140.00;
 const SILICONE_BRANCO_PRICE = 19.99;
 const SILICONE_PU40_PRICE   = 21.99;
@@ -1341,7 +1341,7 @@ function calcUpdate() {
     rows += row(`Remoção laminado e rodapé antigo (${fmtBR(m2Final)} m²)`, `R$ ${fmtBR(totalRemocao)}`);
   }
   if (comRemocaoRodape) {
-    rows += row(`Remoção rodapé antigo (${fmtBR(m2Final)} m²)`, `R$ ${fmtBR(totalRemocaoRodape)}`);
+    rows += row(`Remoção rodapé antigo (${fmtBR(m2Final)} m)`, `R$ ${fmtBR(totalRemocaoRodape)}`);
   }
 
   // Silicones
@@ -1560,7 +1560,7 @@ function baixarPDF() {
     addRow(`Remoção laminado e rodapé antigo (${fmtBR(d.m2FinalRemocao)} m²)`, `R$ ${fmtBR(d.m2FinalRemocao * REMOCAO_M2)}`);
   }
   if (d.comRemocaoRodape) {
-    addRow(`Remoção rodapé antigo (${fmtBR(d.m2FinalRemocao)} m²)`, `R$ ${fmtBR(d.totalRemocaoRodape)}`);
+    addRow(`Remoção rodapé antigo (${fmtBR(d.m2FinalRemocao)} m)`, `R$ ${fmtBR(d.totalRemocaoRodape)}`);
   }
 
   // Silicones
@@ -1656,7 +1656,7 @@ function enviarOrcamentoWA() {
     msg += `\n🔧 Remoção de laminado e rodapé antigo (${fmtBR(d.m2FinalRemocao)} m²)\n`;
   }
   if (d.comRemocaoRodape) {
-    msg += `🔧 Remoção de rodapé antigo (${fmtBR(d.m2FinalRemocao)} m²)\n`;
+    msg += `🔧 Remoção de rodapé antigo (${fmtBR(d.m2FinalRemocao)} m)\n`;
   }
   msg += `\n🚚 Entrega inclusa\n`;
   msg += `\n💰 *Total PIX: R$ ${fmtBR(d.totalGeral)}*\n`;
