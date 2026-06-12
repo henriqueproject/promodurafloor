@@ -1140,6 +1140,28 @@ slides.forEach((_,i) => {
 });
 
 let userSelected = false;
+const HALF = 2750; // 5500ms ÷ 2
+let photoTimer = null;
+let slideTimer = null;
+
+function startTimers() {
+  clearTimeout(photoTimer);
+  clearTimeout(slideTimer);
+  // Reinicia as fotos do slide atual para a primeira
+  const photos = slides[current].querySelectorAll('.slide-photo');
+  photos.forEach((p, i) => p.classList.toggle('active', i === 0));
+  // Após HALF ms: crossfade para segunda foto
+  photoTimer = setTimeout(() => {
+    if (photos.length >= 2) {
+      photos[0].classList.remove('active');
+      photos[1].classList.add('active');
+    }
+    // Após mais HALF ms: avança cor (só se usuário não selecionou)
+    slideTimer = setTimeout(() => {
+      if (!userSelected) goToSlide(current + 1);
+    }, HALF);
+  }, HALF);
+}
 
 function goToSlide(n, byUser) {
   current = ((n % slides.length) + slides.length) % slides.length;
@@ -1147,6 +1169,7 @@ function goToSlide(n, byUser) {
   document.querySelectorAll('.dot').forEach((d,i) => d.classList.toggle('active', i===current));
   thumbEls.forEach((t,i) => t.classList.toggle('active', i===current));
   if (byUser) userSelected = true;
+  startTimers();
 }
 function changeSlide(dir, byUser) { goToSlide(current + dir, byUser); }
 
@@ -1157,19 +1180,7 @@ track.addEventListener('touchend',   e => {
   if (Math.abs(dx) > 50) changeSlide(dx < 0 ? 1 : -1, true);
 });
 
-setInterval(() => { if (!userSelected) changeSlide(1); }, 5500);
-
-// Crossfade das fotos dentro de cada slide (a cada 3s)
-slides.forEach(slide => {
-  const photos = slide.querySelectorAll('.slide-photo');
-  if (photos.length < 2) return;
-  let photoIdx = 0;
-  setInterval(() => {
-    photos[photoIdx].classList.remove('active');
-    photoIdx = (photoIdx + 1) % photos.length;
-    photos[photoIdx].classList.add('active');
-  }, 3000);
-});
+startTimers();
 
 // ── CALCULATOR ──
 const PISO_PRICE   = 63.99;
