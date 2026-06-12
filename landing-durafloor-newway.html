@@ -1348,7 +1348,7 @@ function calcUpdate() {
   if (rodapeAtivo) {
     rows += `<hr class="result-section-sep">`;
     rows += row(`${qtdSilBranco} Silicone Branco Acabamento`, `R$ ${fmtBR(totalSilBranco)}`);
-    rows += row(`R$ 19,99/uni · ${qtdSilBranco} tubo${qtdSilBranco>1?'s':''} (1 a cada 24m de rodapé)`, ``, true);
+    rows += row(`R$ 19,99/uni · ${qtdSilBranco} tubo${qtdSilBranco>1?'s':''}`, ``, true);
     rows += row(`${qtdSilPU40} Silicone PU40 (Cola)`, `R$ ${fmtBR(totalSilPU40)}`);
     rows += row(`R$ 21,99/uni · ${qtdSilPU40} tubo${qtdSilPU40>1?'s':''} (rodapé + perfis)`, ``, true);
   }
@@ -1569,7 +1569,7 @@ function baixarPDF() {
     const qSilB = Math.ceil(d.m2Rodape / SILICONE_COV);
     const qSilP = Math.ceil(d.m2Rodape / SILICONE_COV) + 1;
     addRow(`${qSilB} Silicone Branco Acabamento`, `R$ ${fmtBR(qSilB * SILICONE_BRANCO_PRICE)}`);
-    addRow(`R$ 19,99/uni · ${qSilB} tubo${qSilB>1?'s':''} (1 a cada 24m de rodapé)`, '', true);
+    addRow(`R$ 19,99/uni · ${qSilB} tubo${qSilB>1?'s':''}`, '', true);
     addRow(`${qSilP} Silicone PU40 (Cola)`, `R$ ${fmtBR(qSilP * SILICONE_PU40_PRICE)}`);
     addRow(`R$ 21,99/uni · ${qSilP} tubo${qSilP>1?'s':''} (rodapé + perfis)`, '', true);
   }
