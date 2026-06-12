@@ -870,28 +870,28 @@ footer p { color: rgba(255,255,255,0.3); font-size: 0.78rem; letter-spacing: 0.5
   </div>
 
   <div class="carousel-nav">
-    <button class="nav-btn" onclick="changeSlide(-1)">&#8592;</button>
+    <button class="nav-btn" onclick="changeSlide(-1,true)">&#8592;</button>
     <div class="carousel-dots" id="dots"></div>
-    <button class="nav-btn" onclick="changeSlide(1)">&#8594;</button>
+    <button class="nav-btn" onclick="changeSlide(1,true)">&#8594;</button>
   </div>
 
   <div class="thumb-strip" id="thumbs">
-    <div class="thumb active" onclick="goToSlide(0)">
+    <div class="thumb active" onclick="goToSlide(0,true)">
       <img src="img/fotos-carrossel/Carvalho-york1.jpg" alt="Carvalho York"
            onerror="this.style.background='#8B6A35'">
       <span class="thumb-label">Carvalho York</span>
     </div>
-    <div class="thumb" onclick="goToSlide(1)">
+    <div class="thumb" onclick="goToSlide(1,true)">
       <img src="img/fotos-carrossel/itapua1.jpg" alt="Itapuã"
            onerror="this.style.background='#C8A87A'">
       <span class="thumb-label">Itapuã</span>
     </div>
-    <div class="thumb" onclick="goToSlide(2)">
+    <div class="thumb" onclick="goToSlide(2,true)">
       <img src="img/fotos-carrossel/milao1.jpg" alt="Milão"
            onerror="this.style.background='#6A7080'">
       <span class="thumb-label">Milão</span>
     </div>
-    <div class="thumb" onclick="goToSlide(3)">
+    <div class="thumb" onclick="goToSlide(3,true)">
       <img src="img/fotos-carrossel/nordica1.jpg" alt="Nórdica"
            onerror="this.style.background='#D4C090'">
       <span class="thumb-label">Nórdica</span>
@@ -1135,26 +1135,29 @@ const thumbEls = document.querySelectorAll('.thumb');
 slides.forEach((_,i) => {
   const d = document.createElement('div');
   d.className = 'dot' + (i===0?' active':'');
-  d.onclick = () => goToSlide(i);
+  d.onclick = () => goToSlide(i, true);
   dotsEl.appendChild(d);
 });
 
-function goToSlide(n) {
+let userSelected = false;
+
+function goToSlide(n, byUser) {
   current = ((n % slides.length) + slides.length) % slides.length;
   track.style.transform = `translateX(-${current*100}%)`;
   document.querySelectorAll('.dot').forEach((d,i) => d.classList.toggle('active', i===current));
   thumbEls.forEach((t,i) => t.classList.toggle('active', i===current));
+  if (byUser) userSelected = true;
 }
-function changeSlide(dir) { goToSlide(current + dir); }
+function changeSlide(dir, byUser) { goToSlide(current + dir, byUser); }
 
 let tx = 0;
 track.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, {passive:true});
 track.addEventListener('touchend',   e => {
   const dx = e.changedTouches[0].clientX - tx;
-  if (Math.abs(dx) > 50) changeSlide(dx < 0 ? 1 : -1);
+  if (Math.abs(dx) > 50) changeSlide(dx < 0 ? 1 : -1, true);
 });
 
-setInterval(() => changeSlide(1), 5500);
+setInterval(() => { if (!userSelected) changeSlide(1); }, 5500);
 
 // Crossfade das fotos dentro de cada slide (a cada 3s)
 slides.forEach(slide => {
