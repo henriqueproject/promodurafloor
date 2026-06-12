@@ -1503,11 +1503,33 @@ function baixarPDF() {
     }
 
     desenharLink(0, function() {
-      construirPDFPiso(cvs.toDataURL('image/jpeg', 0.92), cvs.width, cvs.height);
+      const colorSrcs = [
+        { src:'img/fotos-carrossel/Carvalho-york.jpg', label:'CARVALHO YORK' },
+        { src:'img/fotos-carrossel/Itapua.jpg',        label:'ITAPUÃ'        },
+        { src:'img/fotos-carrossel/milao.jpg',          label:'MILÃO'         },
+        { src:'img/fotos-carrossel/nordica.jpg',        label:'NÓRDICA'       },
+      ];
+      function loadImg(src) {
+        return new Promise(res => {
+          const img = new Image();
+          img.onload = () => {
+            const c = document.createElement('canvas');
+            c.width = img.naturalWidth; c.height = img.naturalHeight;
+            c.getContext('2d').drawImage(img, 0, 0);
+            res(c.toDataURL('image/jpeg', 0.85));
+          };
+          img.onerror = () => res(null);
+          img.src = src;
+        });
+      }
+      Promise.all(colorSrcs.map(c => loadImg(c.src))).then(datas => {
+        const colorImgs = colorSrcs.map((c, i) => ({ data: datas[i], label: c.label }));
+        construirPDFPiso(cvs.toDataURL('image/jpeg', 0.92), cvs.width, cvs.height, colorImgs);
+      });
     });
   }
 
-  function construirPDFPiso(bannerData, bannerW, bannerH) {
+  function construirPDFPiso(bannerData, bannerW, bannerH, colorImgs) {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF({ unit:'mm', format:'a4' });
     const W = 210, PL = 18, PR = 18, PW = W - PL - PR;
@@ -1646,6 +1668,81 @@ function baixarPDF() {
   // ── RODAPÉ ──────────────────────────────────────────
   doc.setFontSize(7); doc.setFont('helvetica','normal'); doc.setTextColor(160,160,160);
   doc.text('Válido por tempo indeterminado · Decorcom Interiores · (41) 3319-8635 · @decorcominteriores', W/2, 285, { align:'center' });
+
+  // ── PÁGINA 2: CORES + SPECS ─────────────────────────────
+  if (colorImgs && colorImgs.length) {
+    doc.addPage();
+    let y2 = 18;
+
+    // Título
+    doc.setFontSize(11); doc.setFont('helvetica','bold'); doc.setTextColor(...dark);
+    doc.text('CORES DISPONÍVEIS — Durafloor New Way', PL, y2);
+    doc.setDrawColor(...blue); doc.setLineWidth(0.4);
+    doc.line(PL, y2 + 2, W - PR, y2 + 2);
+    y2 += 10;
+
+    // Grid 2×2
+    const gap   = 3;           // mm entre colunas/linhas
+    const cW    = (PW - gap) / 2;  // ~85,5mm por célula
+    const cH    = 52;          // altura da foto
+    const lblH  = 7;           // altura do label
+
+    colorImgs.forEach((ci, i) => {
+      const col = i % 2;
+      const row = Math.floor(i / 2);
+      const x   = PL + col * (cW + gap);
+      const yp  = y2 + row * (cH + lblH + gap);
+
+      if (ci.data) {
+        doc.addImage(ci.data, 'JPEG', x, yp, cW, cH, undefined, 'FAST');
+      } else {
+        doc.setFillColor(200, 200, 200);
+        doc.rect(x, yp, cW, cH, 'F');
+      }
+
+      // Nome da cor abaixo da foto
+      doc.setFontSize(8); doc.setFont('helvetica','bold'); doc.setTextColor(...dark);
+      doc.text(ci.label, x + cW / 2, yp + cH + 5, { align:'center' });
+    });
+
+    // Linha vertical separadora (entre colunas)
+    const midX = PL + cW + gap / 2;
+    doc.setDrawColor(...lightgray); doc.setLineWidth(0.3);
+    doc.line(midX, y2, midX, y2 + 2 * (cH + lblH + gap) - gap);
+
+    // Linha horizontal separadora (entre linhas)
+    const midY = y2 + cH + lblH + gap / 2;
+    doc.line(PL, midY, W - PR, midY);
+
+    y2 += 2 * (cH + lblH + gap) + 8;
+
+    // ── SPECS ────────────────────────────────────────────
+    doc.setDrawColor(...blue); doc.setLineWidth(0.4);
+    doc.line(PL, y2, W - PR, y2);
+    y2 += 8;
+
+    const specs = [
+      { big:'25',  sub:'ANOS DE GARANTIA\nRESIDENCIAL' },
+      { big:'AC4', sub:'PADRÃO AUTO\nTRÁFEGO'         },
+      { big:'5',   sub:'ANOS DE GARANTIA\nCOMERCIAL'  },
+      { big:'~',   sub:'RESISTENTE\nÀ ÁGUA'           },
+    ];
+    const sW = PW / 4;
+
+    specs.forEach((s, i) => {
+      const sx = PL + i * sW + sW / 2;
+      doc.setFontSize(20); doc.setFont('helvetica','bold'); doc.setTextColor(...blue);
+      doc.text(s.big, sx, y2, { align:'center' });
+      doc.setFontSize(7); doc.setFont('helvetica','normal'); doc.setTextColor(...gray);
+      const lines = s.sub.split('\n');
+      lines.forEach((ln, li) => doc.text(ln, sx, y2 + 6 + li * 4.5, { align:'center' }));
+    });
+
+    // Rodapé pág 2
+    y2 += 22;
+    doc.setFontSize(7); doc.setFont('helvetica','normal'); doc.setTextColor(160,160,160);
+    doc.text('Válido por tempo indeterminado · Decorcom Interiores · (41) 3319-8635 · @decorcominteriores', W/2, 285, { align:'center' });
+  }
 
   doc.save(`Orcamento-Decorcom-${dataStr.replace(/\//g,'-')}.pdf`);
   } // fim construirPDFPiso
