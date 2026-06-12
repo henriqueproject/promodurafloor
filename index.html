@@ -1716,30 +1716,69 @@ function baixarPDF() {
 
     y2 += 2 * (cH + lblH + gap) + 8;
 
-    // ── SPECS ────────────────────────────────────────────
-    doc.setDrawColor(...blue); doc.setLineWidth(0.4);
-    doc.line(PL, y2, W - PR, y2);
-    y2 += 8;
+    // ── SPECS (canvas → imagem para suportar emoji 💧) ───
+    (function() {
+      const SC   = 3;                   // escala para alta resolução
+      const cW   = 600, cH = 110;
+      const sc   = document.createElement('canvas');
+      sc.width   = cW * SC; sc.height = cH * SC;
+      const ctx  = sc.getContext('2d');
+      ctx.scale(SC, SC);
 
-    const specs = [
-      { big:'25',  sub:'ANOS DE GARANTIA\nRESIDENCIAL' },
-      { big:'AC4', sub:'PADRÃO AUTO\nTRÁFEGO'         },
-      { big:'5',   sub:'ANOS DE GARANTIA\nCOMERCIAL'  },
-      { big:'~',   sub:'RESISTENTE\nÀ ÁGUA'           },
-    ];
-    const sW = PW / 4;
+      // Fundo escuro
+      ctx.fillStyle = '#13191f';
+      ctx.fillRect(0, 0, cW, cH);
 
-    specs.forEach((s, i) => {
-      const sx = PL + i * sW + sW / 2;
-      doc.setFontSize(20); doc.setFont('helvetica','bold'); doc.setTextColor(...blue);
-      doc.text(s.big, sx, y2, { align:'center' });
-      doc.setFontSize(7); doc.setFont('helvetica','normal'); doc.setTextColor(...gray);
-      const lines = s.sub.split('\n');
-      lines.forEach((ln, li) => doc.text(ln, sx, y2 + 6 + li * 4.5, { align:'center' }));
-    });
+      const items = [
+        { big:'25',  lines:['ANOS DE GARANTIA','RESIDENCIAL'] },
+        { big:'AC4', lines:['PADRÃO AUTO','TRÁFEGO']         },
+        { big:'5',   lines:['ANOS DE GARANTIA','COMERCIAL']  },
+        { big:'💧',  lines:['RESISTENTE','À ÁGUA']           },
+      ];
+      const colW = cW / 4;
+
+      items.forEach((item, i) => {
+        const cx = i * colW + colW / 2;
+
+        // Número/ícone grande
+        ctx.fillStyle = '#3f8fb5';
+        ctx.font = 'bold 34px Georgia, serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'alphabetic';
+        ctx.fillText(item.big, cx, 42);
+
+        // Linha divisória azul
+        ctx.strokeStyle = '#3f8fb5';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(cx - 18, 52); ctx.lineTo(cx + 18, 52);
+        ctx.stroke();
+
+        // Labels em cinza claro
+        ctx.fillStyle = '#8a9bb0';
+        ctx.font = '11px Arial, sans-serif';
+        item.lines.forEach((ln, li) => {
+          ctx.fillText(ln, cx, 68 + li * 16);
+        });
+
+        // Separador vertical entre colunas
+        if (i < 3) {
+          ctx.strokeStyle = '#2a3540';
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo((i + 1) * colW, 12); ctx.lineTo((i + 1) * colW, cH - 12);
+          ctx.stroke();
+        }
+      });
+
+      const specsData = sc.toDataURL('image/jpeg', 0.92);
+      const specsH_mm = PW * cH / cW;
+      doc.addImage(specsData, 'JPEG', PL, y2, PW, specsH_mm, undefined, 'FAST');
+      y2 += specsH_mm + 5;
+    })();
 
     // Rodapé pág 2
-    y2 += 22;
+    y2 += 2;
     doc.setFontSize(7); doc.setFont('helvetica','normal'); doc.setTextColor(160,160,160);
     doc.text('Válido por tempo indeterminado · Decorcom Interiores · (41) 3319-8635 · @decorcominteriores', W/2, 285, { align:'center' });
   }
