@@ -927,17 +927,6 @@ footer p { color: rgba(255,255,255,0.3); font-size: 0.78rem; letter-spacing: 0.5
           <p class="calc-input-hint">Digite a metragem para instalação sem sobras (calcularemos a perda de instalação para você).</p>
         </div>
 
-        <!-- Cor do piso -->
-        <div class="calc-group">
-          <label class="calc-label" for="selectCorCalc">Cor escolhida</label>
-          <select id="selectCorCalc" class="calc-select" onchange="calcUpdate()">
-            <option value="Carvalho York">Carvalho York</option>
-            <option value="Itapuã">Itapuã</option>
-            <option value="Milão">Milão</option>
-            <option value="Nórdica">Nórdica</option>
-          </select>
-        </div>
-
         <!-- Rodapé toggle -->
         <button class="rodape-toggle-btn" id="rodapeBtn" onclick="toggleRodape()">+ Incluir Rodapé</button>
 
@@ -1259,7 +1248,7 @@ function changeQty(id, delta) {
 function calcUpdate() {
   const areaStr = document.getElementById('inputArea').value.replace(',', '.');
   const area    = parseFloat(areaStr);
-  const cor     = document.getElementById('selectCorCalc').value;
+  const cor     = 'New Way';
 
   const body    = document.getElementById('resultBody');
   const disc    = document.getElementById('calcDisclaimer');
